@@ -1,0 +1,92 @@
+# SITE CONFIGURATION
+baseurl: "/Type-on-Strap"
+url: "https://sylhare.github.io"
+
+# THEME-SPECIFIC CONFIGURATION
+theme_settings:
+  # Meta
+  title: Phree Dream
+  avatar: assets/img/triangle.svg
+  favicon: assets/favicon.ico
+  gravatar: 5ac849d1d7af7fed
+  description: "Phree Dream, about AI, Deep Learning and Life" # used by search engines
+
+  # Header and footer text
+  header_text: > #two or three lines to describe your site
+     <p>Phree's personal blog about <code>AI</code>, <code>DEEP LEARNING</code> and Life.</p>
+  header_text_feature_image: 
+  footer_text: >
+   Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/sylhare/Type-on-Strap">Type on Strap</a>
+
+  # Icons
+  rss: true
+  email_address: "iphreeliu@gmail.com" # Full email address, e.g. "sam@example.com"
+  behance:
+  bitbucket:
+  dribbble:
+  facebook:
+  flickr:
+  gitlab:
+  github: "phreer"
+  google_plus:
+  instagram:
+  keybase:
+  linkedin:  # Full URL
+  pinterest:
+  reddit:
+  soundcloud:
+  stack_exchange:  # Full URL
+  steam:
+  tumblr:
+  twitter: # "twitter username"
+  vimeo:
+  wordpress:
+  youtube:
+
+  # Scripts / Features 
+  google_analytics: # Tracking ID, e.g. "UA-000000-01"
+  disqus_shortname: phree-dream-1
+  katex: true # Enable if using math markup
+  portfolio: false
+  search: true
+  tags: true
+  
+  
+  # Localization strings
+  str_about: "关于"
+  str_follow_on: "关注"
+  str_rss_follow: "订阅RSS"
+  str_email: "邮箱"
+  str_next_post: "下一篇"
+  str_previous_post: "上一篇"
+  str_next_page: "下一页"
+  str_previous_page: "上一页"
+  str_continue_reading: "继续阅读"
+  str_javascript_required_disqus: "启用JavaScript以查看评论."
+
+  # Colours, typography and padding
+  # Open the "_sass > base" folder, and open "_variables.scss"
+  google_fonts: "Source+Sans+Pro:400,700,700italic,400italic"
+
+  # Post navigation
+  post_navigation: true
+
+# PAGINATION
+paginate: 20
+paginate_path: "blog/page:num"
+
+# PORTFOLIO
+collections:
+  portfolio:
+    output: true
+    permalink: /:collection/:name
+
+# BUILD SETTINGS
+markdown: kramdown
+highlighter: rouge
+sass:
+  sass_dir: _sass
+  style: :compressed
+plugins: [jekyll-paginate, jekyll-seo-tag]
+theme: type-on-strap # If using the theme as a jekyll theme gem
+exclude: ["Gemfile", "Gemfile.lock", "type-on-strap.gemspec", "*.gem", "LICENSE", "README.md", "screenshot.png"]

@@ -1,0 +1,33 @@
+---
+layout: page
+---
+
+<div class="archives">
+{% assign loopindex = 0 %}
+{% assign yeartime = 0 %}
+
+{% for post in site.posts %}
+{% capture y %}{{ post.date | date:"%Y" }}{% endcapture %}
+{% if year != y %}
+  {% assign loopindex = 0 %}
+  {% if yeartime != 0 %}
+    {% if rowfinder == 1 %}
+    </div>
+    {% endif %}
+  {% endif %}
+  {% assign year = y %}
+  <h3>{{ y }}</h3>
+{% endif %}
+{% assign yeartime = yeartime | plus: 1 %}
+
+{% assign loopindex = loopindex | plus: 1 %}
+<h5 class="archive-title">
+  <a href="{{ post.url | prepend: site.baseurl }}">
+    <i class="fa fa-file-text-o" aria-hidden="true"></i>
+      {{ post.title }}
+  </a>
+<div class="meta">
+  {{ post.date | date: "%B %-d, %Y" }}
+</div>
+</h5>
+{% endfor %}
