@@ -5,26 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <!-- JQuery (used for bootstrap and jekyll search) -->
-    <script src="/Type-on-Strap/assets/js/jquery-3.2.1.min.js" ></script>
+    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
     
     <!-- Main JS (navbar.js and katex_init.js)-->
-    <script defer=true src="/Type-on-Strap/assets/js/main.min.js"></script>
+    <script defer=true src="/assets/js/main.min.js"></script>
     
     <!-- CSS -->
-    <link rel="stylesheet" href="/Type-on-Strap/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
 
     <!--Favicon-->
-    <link rel="shortcut icon" href="/Type-on-Strap/assets/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
 
     <!-- Canonical -->
-    <link rel="canonical" href="http://localhost:4000/Type-on-Strap/2018/02/18/first-article.html">
+    <link rel="canonical" href="http://localhost:4000/2018/02/18/first-article.html">
 
     <!-- RSS -->
-    <link rel="alternate" type="application/atom+xml" title="Phree Dream" href="http://localhost:4000//Type-on-Strap//feed.xml"/>
+    <link rel="alternate" type="application/atom+xml" title="Phree Dream" href="http://localhost:4000///feed.xml"/>
 
     <!-- Font Awesome -->
     <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
-    <link rel="stylesheet" type="text/css" href="/Type-on-Strap/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
 
     <!-- Google Fonts -->
     
@@ -35,12 +35,30 @@
     
     <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
-    <link rel="stylesheet" type="text/css" href="/Type-on-Strap/assets/css/katex.min.css">
-    <script src="/Type-on-Strap/assets/js/katex.min.js">
+    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
+    <script src="/assets/js/katex.min.js">
     </script>
     
 
     <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-110451933-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
     
     
     <!-- seo tags -->
@@ -52,12 +70,12 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="大年初三, 祝大家新年快乐!" />
 <meta property="og:description" content="大年初三, 祝大家新年快乐!" />
-<link rel="canonical" href="http://localhost:4000/Type-on-Strap/2018/02/18/first-article.html" />
-<meta property="og:url" content="http://localhost:4000/Type-on-Strap/2018/02/18/first-article.html" />
+<link rel="canonical" href="http://localhost:4000/2018/02/18/first-article.html" />
+<meta property="og:url" content="http://localhost:4000/2018/02/18/first-article.html" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2018-02-18T00:00:00+08:00" />
 <script type="application/ld+json">
-{"description":"大年初三, 祝大家新年快乐!","author":{"@type":"Person","name":"Phree"},"@type":"BlogPosting","url":"http://localhost:4000/Type-on-Strap/2018/02/18/first-article.html","headline":"这是我的第一篇博文, 用于测试","dateModified":"2018-02-18T00:00:00+08:00","datePublished":"2018-02-18T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/Type-on-Strap/2018/02/18/first-article.html"},"@context":"http://schema.org"}</script>
+{"description":"大年初三, 祝大家新年快乐!","author":{"@type":"Person","name":"Phree"},"@type":"BlogPosting","url":"http://localhost:4000/2018/02/18/first-article.html","headline":"这是我的第一篇博文, 用于测试","dateModified":"2018-02-18T00:00:00+08:00","datePublished":"2018-02-18T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/02/18/first-article.html"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <!-- Manual seo tags -->
@@ -72,12 +90,12 @@
     
     <!-- Logo and title -->
 	<div class="branding">
-		<a href="/Type-on-Strap/">
-			<img class="avatar" src="/Type-on-Strap/assets/img/triangle.svg" alt=""/>
+		<a href="/">
+			<img class="avatar" src="/assets/img/triangle.svg" alt=""/>
 		</a>
 
 		<h1 class="site-title">
-			<a href="/Type-on-Strap/">Phree Dream</a>
+			<a href="/">Phree Dream</a>
 		</h1>
 	</div>
     
@@ -94,7 +112,7 @@
         
         
         <li>
-            <a class="clear" href="/Type-on-Strap/about/">
+            <a class="clear" href="/about/">
                 关于
             </a>
         </li>
@@ -102,7 +120,7 @@
         
         
         <li>
-            <a class="clear" href="/Type-on-Strap/archives/">
+            <a class="clear" href="/archives/">
                 归档
             </a>
         </li>
@@ -123,14 +141,14 @@
         
         
         <li>
-            <a class="clear" href="http://localhost:4000/Type-on-Strap/search">
+            <a class="clear" href="http://localhost:4000/search">
                 <i class="fa fa-search" aria-hidden="true"></i>
             </a>
         </li>
         
         
         <li>
-            <a class="clear" href="http://localhost:4000/Type-on-Strap/tags">
+            <a class="clear" href="http://localhost:4000/tags">
                 <i class="fa fa-tags" aria-hidden="true"></i>
             </a>
         </li>
@@ -143,7 +161,7 @@
 
     <div class="content">
       <article >
-  <header id="main" style="background-image: url('/Type-on-Strap/')">
+  <header id="main" style="background-image: url('/')">
     <h1 id="%E8%BF%99%E6%98%AF%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E6%96%87%2C+%E7%94%A8%E4%BA%8E%E6%B5%8B%E8%AF%95" class="title">这是我的第一篇博文, 用于测试</h1>
     <p class="meta">
     February 18, 2018
@@ -167,7 +185,7 @@
         
             
         
-          <a class="button" href="/Type-on-Strap/tags#Test">
+          <a class="button" href="/tags#Test">
             <p><i class="fa fa-tag fa-fw"></i> Test</p>
           </a>
         
@@ -212,7 +230,7 @@
                 <!-- Social icons from Font Awesome, if enabled -->
                 
 <li>
-	<a href="http://localhost:4000///Type-on-Strap//feed.xml" title="订阅RSS">
+	<a href="http://localhost:4000////feed.xml" title="订阅RSS">
 		<span class="fa-stack fa-lg">
             <i class="fa fa-circle fa-stack-2x"></i>
             <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
