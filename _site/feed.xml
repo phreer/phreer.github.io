@@ -5,7 +5,104 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://localhost:4000/</link>
     <description>Phree Dream, about AI, Deep Learning and Life</description>
-    <pubDate>Fri, 23 Mar 2018 00:56:01 +0800</pubDate>
+    <pubDate>Wed, 28 Mar 2018 23:26:25 +0800</pubDate>
+    
+      <item>
+        <title>Qt 中 OpenCV 环境的配置</title>
+        <link>/2018/03/28/setup_opencv_and_basic_usage.html</link>
+        <guid isPermaLink="true">/2018/03/28/setup_opencv_and_basic_usage.html</guid>
+        <description>&lt;h2 id=&quot;opencv-简介&quot;&gt;OpenCV 简介&lt;/h2&gt;
+&lt;p&gt;OpenCV 是一个开源的计算机视觉库, 实现了很多计算机视觉, 图像处理相关的算法, 如基本的图像操作, 物体检测, 光流等等, 在相关领域有着非常广泛的应用. OpenCV 提供了低层的图像运算功能, 也有高级的算法, 同时提供了 C++, Python, Java 接口.&lt;/p&gt;
+
+&lt;p&gt;当前使用 C++ 接口会更加方便一些, 因为 OpenCV 会实现自动管理内存. 主要体现在使用 Mat 数据结构等.&lt;/p&gt;
+
+&lt;h2 id=&quot;环境配置&quot;&gt;环境配置&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;从&lt;a href=&quot;https://opencv.org/releases.html&quot;&gt;官网&lt;/a&gt; 下载对应的版本.&lt;/li&gt;
+  &lt;li&gt;Win平台有预编译的版本, 只需要执行 exe 文件将编译的文件解压到对应目录即可. &lt;strong&gt;注意&lt;/strong&gt;: 预编译版本似乎只支持 MSVC 编译器,  因此安装 Qt 的时候尽量选择使用 MSVC 编译器(前提是已经安装 VS). 当然如果已经安装了其他编译器, 也可以在 Qt 的 Tools - &amp;gt; Options -&amp;gt; Build &amp;amp; Run 中设置 MSVC(Qt 会自动检测已安装的编译器). 如图所示&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2018-3-28/setup_compiler.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;解压以后需要在 .pro 文件中添加 lib 文件和 include 目录. &lt;strong&gt;注意&lt;/strong&gt;: 我们这里使用的版本是 OpenCV 3.4, 该版本大对 lib 文件进行了合并, 只有一个 world 文件. 这和网上大多数教程所用的版本不一样. 比如我的 .pro 文件定义是&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;.pro 中添加依赖项的方法是 &lt;code class=&quot;highlighter-rouge&quot;&gt;ITEM += PATH/FILE&lt;/code&gt;, 使用 -L 表示添加目录, -l 表示添加文件. 注意换行需要在结尾添加 \ 符号.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 添加对应的 include 目录
+INCLUDEPATH += &quot;C:\Program Files\opencv\build\include&quot; \
+&quot;E:\Program Files (x86)\Intel\RSSDK\include&quot; \
+&quot;E:\Program Files (x86)\Intel\RSSDK\sample\common\include&quot; \
+&quot;C:\Users\Phree\Desktop\c++\record_v0_1\include&quot;
+...
+# 添加对应的 lib 目录, 前面一大部分是因为不添加的话一直出现 LNK 2019 错误
+# 参考了可用的 VS 配置, 把 Microsoft SDK 的文件包含进来才得到解决.
+LIBS += -lws2_32 \ # winsock32 lib 文件
+-L&quot;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Lib\x64&quot; \
+-lkernel32 \
+-luser32 \
+-lgdi32 \
+-lwinspool \
+-lcomdlg32 \
+-ladvapi32 \
+-lshell32 \
+-lole32 \
+-loleaut32 \
+-luuid \
+-lodbc32 \
+-lodbccp32 \
+-L&quot;C:\Users\Phree\Desktop\c++\record_v0_1\lib&quot; \
+-lmyo64
+
+# 对于 OpenCV 和 Realsense SDK, Debug 版本和 Release 版本所需要的链接文件是不一样的.
+# 注意到 Debug 版本的结尾是带 _d 的
+CONFIG(debug, debug|release): {
+LIBS += -L&quot;C:\Program Files\opencv\build\x64\vc14\lib&quot; \
+-lopencv_world331d \
+-L&quot;E:\Program Files (x86)\Intel\RSSDK\lib\x64&quot; \
+-llibpxc_d \
+-L&quot;E:\Program Files (x86)\Intel\RSSDK\sample\common\lib\x64\v140&quot; \
+-llibpxcutils_d
+-llibpxcutilsmd_d
+} else:CONFIG(release, debug|release): {
+LIBS += -L&quot;C:\Program Files\opencv\build\x64\vc14\lib&quot; \
+-lopencv_world331 \
+-L&quot;E:\Program Files (x86)\Intel\RSSDK\lib\x64&quot; \
+-llibpxc \
+-L&quot;E:\Program Files (x86)\Intel\RSSDK\sample\commonlib\x64\v140&quot; \
+-llibpxcutils
+-llibpxcutilsmd
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;修改 .pro 文件以后执行 Buld -&amp;gt; qmake, 然后再进行编译.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;一个简单的测试程序&quot;&gt;一个简单的测试程序&lt;/h2&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#include&amp;lt;iostream&amp;gt;  
+#include &amp;lt;opencv2/core/core.hpp&amp;gt;  
+#include &amp;lt;opencv2/highgui/highgui.hpp&amp;gt;  
+  
+    
+using namespace cv;  
+      
+        
+int main()  {  
+    Mat img=imread(&quot;pic.jpg&quot;);  
+    namedWindow(&quot;pic&quot;);  
+    imshow(&quot;pic&quot;,img);  
+    // 等待6000 ms后窗口自动关闭  
+    waitKey(6000);  
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;如果能够正常编译运行, 那恭喜啦, 配置成功了. 如果出现找不到头文件的错误, 则应该是 include path 没有设置好. 如果出现 LNK 2019 错误, 则是 lib 文件没有设置成功.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 28 Mar 2018 00:00:00 +0800</pubDate>
+      </item>
     
       <item>
         <title>语音识别中的 CTC 算法详解</title>

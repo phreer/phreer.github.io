@@ -11,10 +11,11 @@ OpenCV 是一个开源的计算机视觉库, 实现了很多计算机视觉, 图
 当前使用 C++ 接口会更加方便一些, 因为 OpenCV 会实现自动管理内存. 主要体现在使用 Mat 数据结构等.
 
 ## 环境配置
+OpenCV 在 Win 平台的配置还是很简单的, 因为有已经编译好的. 其他平台需要使用 CMake 编译源文件, 请参考其他资料.
 - 从[官网](https://opencv.org/releases.html) 下载对应的版本.
 - Win平台有预编译的版本, 只需要执行 exe 文件将编译的文件解压到对应目录即可. **注意**: 预编译版本似乎只支持 MSVC 编译器,  因此安装 Qt 的时候尽量选择使用 MSVC 编译器(前提是已经安装 VS). 当然如果已经安装了其他编译器, 也可以在 Qt 的 Tools - > Options -> Build & Run 中设置 MSVC(Qt 会自动检测已安装的编译器). 如图所示
 
-![]({% baseurl %}/assets/img/2018-3-28/setup_compiler.jpg)
+![]({{ site.baseurl }}/assets/img/2018-3-28/setup_compiler.jpg)
 
 - 解压以后需要在 .pro 文件中添加 lib 文件和 include 目录. **注意**: 我们这里使用的版本是 OpenCV 3.4, 该版本大对 lib 文件进行了合并, 只有一个 world 文件. 这和网上大多数教程所用的版本不一样. 比如我的 .pro 文件定义是
 

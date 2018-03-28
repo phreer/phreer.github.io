@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- JQuery (used for bootstrap and jekyll search) -->
+    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
+    
+    <!-- Main JS (navbar.js and katex_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://localhost:4000/2018/03/28/setup_opencv_and_basic_usage.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Phree Dream" href="http://localhost:4000///feed.xml"/>
+
+    <!-- Font Awesome -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
+    
+
+    <!-- KaTeX 0.8.3 -->
+    
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
+    <script src="/assets/js/katex.min.js">
+    </script>
+    
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-110451933-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>Qt 中 OpenCV 环境的配置</title>
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:title" content="Qt 中 OpenCV 环境的配置" />
+<meta name="author" content="Phree" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="OpenCV 简介 OpenCV 是一个开源的计算机视觉库, 实现了很多计算机视觉, 图像处理相关的算法, 如基本的图像操作, 物体检测, 光流等等, 在相关领域有着非常广泛的应用. OpenCV 提供了低层的图像运算功能, 也有高级的算法, 同时提供了 C++, Python, Java 接口." />
+<meta property="og:description" content="OpenCV 简介 OpenCV 是一个开源的计算机视觉库, 实现了很多计算机视觉, 图像处理相关的算法, 如基本的图像操作, 物体检测, 光流等等, 在相关领域有着非常广泛的应用. OpenCV 提供了低层的图像运算功能, 也有高级的算法, 同时提供了 C++, Python, Java 接口." />
+<link rel="canonical" href="http://localhost:4000/2018/03/28/setup_opencv_and_basic_usage.html" />
+<meta property="og:url" content="http://localhost:4000/2018/03/28/setup_opencv_and_basic_usage.html" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-03-28T00:00:00+08:00" />
+<script type="application/ld+json">
+{"description":"OpenCV 简介 OpenCV 是一个开源的计算机视觉库, 实现了很多计算机视觉, 图像处理相关的算法, 如基本的图像操作, 物体检测, 光流等等, 在相关领域有着非常广泛的应用. OpenCV 提供了低层的图像运算功能, 也有高级的算法, 同时提供了 C++, Python, Java 接口.","author":{"@type":"Person","name":"Phree"},"@type":"BlogPosting","url":"http://localhost:4000/2018/03/28/setup_opencv_and_basic_usage.html","headline":"Qt 中 OpenCV 环境的配置","dateModified":"2018-03-28T00:00:00+08:00","datePublished":"2018-03-28T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/03/28/setup_opencv_and_basic_usage.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>Qt 中 OpenCV 环境的配置 | Phree Dream</title>
+    <meta name="description" content="OpenCV 简介OpenCV 是一个开源的计算机视觉库, 实现了很多计算机视觉, 图像处理相关的算法, 如基本的图像操作, 物体检测, 光流等等, 在相关领域有着非常广泛的应用. OpenCV 提供了低层的图像运算功能, 也有高级的算法, 同时提供了 C++, Python, Java 接口.">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+    
+    <!-- Logo and title -->
+	<div class="branding">
+		<a href="/">
+			<img class="avatar" src="/assets/img/triangle.svg" alt=""/>
+		</a>
+
+		<h1 class="site-title">
+			<a href="/">Phree Dream</a>
+		</h1>
+	</div>
+    
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+    
+    <!-- Menu -->
+    <ul>
+        
+        
+        
+        
+        <li>
+            <a class="clear" href="/about/">
+                关于
+            </a>
+        </li>
+        
+        
+        
+        <li>
+            <a class="clear" href="/archives/">
+                归档
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        
+        <li>
+            <a class="clear" href="http://localhost:4000/search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://localhost:4000/tags">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+    </ul>
+        
+	</nav>
+</header>
+
+    <div class="content">
+      <article >
+  <header id="main" style="background-image: url('/')">
+    <h1 id="Qt+%E4%B8%AD+OpenCV+%E7%8E%AF%E5%A2%83%E7%9A%84%E9%85%8D%E7%BD%AE" class="title">Qt 中 OpenCV 环境的配置</h1>
+    <p class="meta">
+    March 28, 2018
+     - Phree
+    </p>
+  </header>
+  <section class="post-content"><h2 id="opencv-简介">OpenCV 简介</h2>
+<p>OpenCV 是一个开源的计算机视觉库, 实现了很多计算机视觉, 图像处理相关的算法, 如基本的图像操作, 物体检测, 光流等等, 在相关领域有着非常广泛的应用. OpenCV 提供了低层的图像运算功能, 也有高级的算法, 同时提供了 C++, Python, Java 接口.</p>
+
+<p>当前使用 C++ 接口会更加方便一些, 因为 OpenCV 会实现自动管理内存. 主要体现在使用 Mat 数据结构等.</p>
+
+<h2 id="环境配置">环境配置</h2>
+<ul>
+  <li>从<a href="https://opencv.org/releases.html">官网</a> 下载对应的版本.</li>
+  <li>Win平台有预编译的版本, 只需要执行 exe 文件将编译的文件解压到对应目录即可. <strong>注意</strong>: 预编译版本似乎只支持 MSVC 编译器,  因此安装 Qt 的时候尽量选择使用 MSVC 编译器(前提是已经安装 VS). 当然如果已经安装了其他编译器, 也可以在 Qt 的 Tools - &gt; Options -&gt; Build &amp; Run 中设置 MSVC(Qt 会自动检测已安装的编译器). 如图所示</li>
+</ul>
+
+<p><img src="/assets/img/2018-3-28/setup_compiler.jpg" alt="" /></p>
+
+<ul>
+  <li>解压以后需要在 .pro 文件中添加 lib 文件和 include 目录. <strong>注意</strong>: 我们这里使用的版本是 OpenCV 3.4, 该版本大对 lib 文件进行了合并, 只有一个 world 文件. 这和网上大多数教程所用的版本不一样. 比如我的 .pro 文件定义是</li>
+</ul>
+
+<blockquote>
+  <p>.pro 中添加依赖项的方法是 <code class="highlighter-rouge">ITEM += PATH/FILE</code>, 使用 -L 表示添加目录, -l 表示添加文件. 注意换行需要在结尾添加 \ 符号.</p>
+</blockquote>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 添加对应的 include 目录
+INCLUDEPATH += "C:\Program Files\opencv\build\include" \
+"E:\Program Files (x86)\Intel\RSSDK\include" \
+"E:\Program Files (x86)\Intel\RSSDK\sample\common\include" \
+"C:\Users\Phree\Desktop\c++\record_v0_1\include"
+...
+# 添加对应的 lib 目录, 前面一大部分是因为不添加的话一直出现 LNK 2019 错误
+# 参考了可用的 VS 配置, 把 Microsoft SDK 的文件包含进来才得到解决.
+LIBS += -lws2_32 \ # winsock32 lib 文件
+-L"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Lib\x64" \
+-lkernel32 \
+-luser32 \
+-lgdi32 \
+-lwinspool \
+-lcomdlg32 \
+-ladvapi32 \
+-lshell32 \
+-lole32 \
+-loleaut32 \
+-luuid \
+-lodbc32 \
+-lodbccp32 \
+-L"C:\Users\Phree\Desktop\c++\record_v0_1\lib" \
+-lmyo64
+
+# 对于 OpenCV 和 Realsense SDK, Debug 版本和 Release 版本所需要的链接文件是不一样的.
+# 注意到 Debug 版本的结尾是带 _d 的
+CONFIG(debug, debug|release): {
+LIBS += -L"C:\Program Files\opencv\build\x64\vc14\lib" \
+-lopencv_world331d \
+-L"E:\Program Files (x86)\Intel\RSSDK\lib\x64" \
+-llibpxc_d \
+-L"E:\Program Files (x86)\Intel\RSSDK\sample\common\lib\x64\v140" \
+-llibpxcutils_d
+-llibpxcutilsmd_d
+} else:CONFIG(release, debug|release): {
+LIBS += -L"C:\Program Files\opencv\build\x64\vc14\lib" \
+-lopencv_world331 \
+-L"E:\Program Files (x86)\Intel\RSSDK\lib\x64" \
+-llibpxc \
+-L"E:\Program Files (x86)\Intel\RSSDK\sample\commonlib\x64\v140" \
+-llibpxcutils
+-llibpxcutilsmd
+}
+</code></pre></div></div>
+<ul>
+  <li>修改 .pro 文件以后执行 Buld -&gt; qmake, 然后再进行编译.</li>
+</ul>
+
+<h2 id="一个简单的测试程序">一个简单的测试程序</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include&lt;iostream&gt;  
+#include &lt;opencv2/core/core.hpp&gt;  
+#include &lt;opencv2/highgui/highgui.hpp&gt;  
+  
+    
+using namespace cv;  
+      
+        
+int main()  {  
+    Mat img=imread("pic.jpg");  
+    namedWindow("pic");  
+    imshow("pic",img);  
+    // 等待6000 ms后窗口自动关闭  
+    waitKey(6000);  
+}
+</code></pre></div></div>
+
+<p>如果能够正常编译运行, 那恭喜啦, 配置成功了. 如果出现找不到头文件的错误, 则应该是 include path 没有设置好. 如果出现 LNK 2019 错误, 则是 lib 文件没有设置成功.</p>
+</section>
+   
+   <!-- Tag list -->
+  
+  
+
+
+
+    
+</article>
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'phree-dream-1';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>启用JavaScript以查看评论.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>上一篇</p>
+      <a href="/2018/03/22/ctc_algorithem.html">
+        语音识别中的 CTC 算法详解
+      </a>
+  </div>
+  
+  
+</div>
+
+    </div>
+    
+<footer class="site-footer">
+    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/sylhare/Type-on-Strap">Type on Strap</a>
+</p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+	<a href="http://localhost:4000////feed.xml" title="订阅RSS">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:iphreeliu@gmail.com" title="邮箱">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/phreer" title="关注 GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+
+  </body>
+</html>
