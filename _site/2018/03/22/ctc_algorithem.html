@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- JQuery (used for bootstrap and jekyll search) -->
+    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
+    
+    <!-- Main JS (navbar.js and katex_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://localhost:4000/2018/03/22/ctc_algorithem.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Phree Dream" href="http://localhost:4000///feed.xml"/>
+
+    <!-- Font Awesome -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
+    
+
+    <!-- KaTeX 0.8.3 -->
+    
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
+    <script src="/assets/js/katex.min.js">
+    </script>
+    
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-110451933-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>语音识别中的 CTC 算法详解</title>
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:title" content="语音识别中的 CTC 算法详解" />
+<meta name="author" content="Phree" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="CTC(Connectionist Temporal Classiﬁcation) 在神经网络训练中用于训练序列化的数据, 比如说语音, 手写文字(虽然手写文字是一张图, 但不同的文字之间可以认为是按一定序列进行输入的, 因为要考虑前后的约束关系). 在数据量剧增的今天, 我们可以非常容易地获取大量语音数据, 但遗憾的是这些语音通常没有非常仔细的标注. 如何李用深度学习和大量数据的优势是语音识别领域的一个难题. CTC 的提出为使用深度神经网络进行语音识别奠定了基础. 介绍 在语音识别领域存在的一个问题是, 我们的训练数据往往只是语音片段和对应的文本, 语音序列和文本长度不同, 并且不是对齐的, 也就是, 我们不知道语音中的哪一帧是属于一个字, 也不知道一个字的长短. 这是因为进行对齐标注是一件非常耗费人力和时间的事情. 并且人与人的语速不同, 导致不可能使用一种强制的规则来强制确定一个字的长短. 这种难以对齐的问题也出现在手写字体识别中, 因为每个字占的大小也是不确定的. CTC 正是为了解决这个问题而被提出的. CTC 用于把语音经过处理以后得到的特征映射为文本, 而对特征提取的过程并没有限制, 也即是说可以使用任何模型接到 CTC 中得到结果. 形式化问题 CTC 网络将输入划分成固定长度的帧. 我们的目标是对给定符号输出符号集(如汉字表, 字母表) 和训练数据集, , 训练集中每一个样本 包含一个由T个向量组成的 维语音序列 和输出文本 希望找到映射 . 事实上这个映射并不容易直接得到, CTC 通过一个巧妙的算法来得到这个映射. CTC 网络先将输入的 维长度为 向量序列 映射为输出的 维长度为的向量序列 . , 其中 表示时刻网络的第 个输出, 通常解释为输出低 个符号的概率. 这个过程表示为 . 通常由一个 RNN 网络来完成, 如上图所示的 Alignment. 如此我们可以看到, 一个输出 , 可以对应一条路径, 我们将其表示为 . 每一条路径的概率为 即一条路径的概率等于路径上各个符号输出概率的乘积(事实上, 这里是假设输出符号之间相互独立). 随后 CTC 需要对于连续相同的输出进行合并. 但是这种方法会出现一些问题, 比如说对于单词 hello, 输出的可能是 heelllooo, 进行合并以后会得到 helo 而不是 hello. 为了解决这个问题, CTC 中引入了一个特殊的 &lt; blank &gt; 字符, 最后这个字符是会被移去的. 我们期望它输出 heel&lt; blank &gt;loo, 最后就可以得到所期望的 hello. 使用&lt; blank &gt;还解决了语音中的停顿的问题, 同一段时间没有输出时, 也输出&lt; blank &gt;字符. 这时符号集我们将这个合并和删除&lt; blank &gt;的过程记为, 将这个过程的输出记为, 有显然这是一个多对一映射, 即可能有多个可能的路径对应一种可能的文本输出. 实际上, 我们所希望得到的就是 其中 即在所有可能的输出文本序列中找到概率最大的那一个, 而每一个输出文本序列的概率可以通过边沿概率分布公式得到, 即所有可能得到该输出文本的路径的概率之和. Loss Function 事实上直接优化得到上式也不是一件容易的事情. 因为这意味着我们需要遍历所有的路径来得到各个可能输出文本的概率. CTC 论文中提到两种方法可以简化这个步骤. 第一种方法比较简单, 我们可以简单地认为 其中, 直观上理解就是直接找概率最大的路径, 认为其对应的输出一般也是概率最大的. 这样我们其实只需要选择每个中出现概率最大的符号. 可以解释为希望找一个成绩最好的班级, 但查看每一个学生的成绩又太过于繁琐, 于是只看成绩最好的学生的成绩. 从上面的例子可以看出, 这种方法事实上过于简化了, 很多情况下我们可能会遇到这种情况. 于是论文中还提出了前缀搜索解码(Prefix Search Decoding), 这种方法的结果普遍好于第一种方法. 事实上如果我们考量所有可能的路径, 我们会发现其实有很多路径是重复计算的, 有很多路径也是明显不可能的, 这启发我们使用动态规划和剪枝来去除冗余计算和淘汰不可能的路径. Prefix Search Decoding 算法类似于 HMM 模型中的前向-后向算法(F-B Algorithm). 我们首先定义 解释为经过步, 得到输出文本序列的概率. 从而我们可以得到递推关系 …未完待续… CTC 假设在给定输入的情况下, 输出是条件独立的(事实上在一些情况下该假设是不成立的, 因此这也是 CTC 的一个主要缺点). 根据条件概率公式, 可以把它分解为. 每一种输出序列都可以看成是一条路径, 可以将其视为计算不同路径概率. 如果我们遍历所有路径计算概率, 计算量将是非常巨大的, 举个例子, 假设输出有 10 种不同的符号, 一个语音序列被分拆成 40 帧, 那么可能的路径将是 ! 这是不可接受的. 幸运的是, 经过一些分析我们可以发现这种暴力算法中包含了很多冗余的计算, 熟悉算法的朋友可能已经发现了, 可以通过动态规划来高效地完成这一计算. 对于每一帧, 输出的概率分布 通常用 RNN 来实现." />
+<meta property="og:description" content="CTC(Connectionist Temporal Classiﬁcation) 在神经网络训练中用于训练序列化的数据, 比如说语音, 手写文字(虽然手写文字是一张图, 但不同的文字之间可以认为是按一定序列进行输入的, 因为要考虑前后的约束关系). 在数据量剧增的今天, 我们可以非常容易地获取大量语音数据, 但遗憾的是这些语音通常没有非常仔细的标注. 如何李用深度学习和大量数据的优势是语音识别领域的一个难题. CTC 的提出为使用深度神经网络进行语音识别奠定了基础. 介绍 在语音识别领域存在的一个问题是, 我们的训练数据往往只是语音片段和对应的文本, 语音序列和文本长度不同, 并且不是对齐的, 也就是, 我们不知道语音中的哪一帧是属于一个字, 也不知道一个字的长短. 这是因为进行对齐标注是一件非常耗费人力和时间的事情. 并且人与人的语速不同, 导致不可能使用一种强制的规则来强制确定一个字的长短. 这种难以对齐的问题也出现在手写字体识别中, 因为每个字占的大小也是不确定的. CTC 正是为了解决这个问题而被提出的. CTC 用于把语音经过处理以后得到的特征映射为文本, 而对特征提取的过程并没有限制, 也即是说可以使用任何模型接到 CTC 中得到结果. 形式化问题 CTC 网络将输入划分成固定长度的帧. 我们的目标是对给定符号输出符号集(如汉字表, 字母表) 和训练数据集, , 训练集中每一个样本 包含一个由T个向量组成的 维语音序列 和输出文本 希望找到映射 . 事实上这个映射并不容易直接得到, CTC 通过一个巧妙的算法来得到这个映射. CTC 网络先将输入的 维长度为 向量序列 映射为输出的 维长度为的向量序列 . , 其中 表示时刻网络的第 个输出, 通常解释为输出低 个符号的概率. 这个过程表示为 . 通常由一个 RNN 网络来完成, 如上图所示的 Alignment. 如此我们可以看到, 一个输出 , 可以对应一条路径, 我们将其表示为 . 每一条路径的概率为 即一条路径的概率等于路径上各个符号输出概率的乘积(事实上, 这里是假设输出符号之间相互独立). 随后 CTC 需要对于连续相同的输出进行合并. 但是这种方法会出现一些问题, 比如说对于单词 hello, 输出的可能是 heelllooo, 进行合并以后会得到 helo 而不是 hello. 为了解决这个问题, CTC 中引入了一个特殊的 &lt; blank &gt; 字符, 最后这个字符是会被移去的. 我们期望它输出 heel&lt; blank &gt;loo, 最后就可以得到所期望的 hello. 使用&lt; blank &gt;还解决了语音中的停顿的问题, 同一段时间没有输出时, 也输出&lt; blank &gt;字符. 这时符号集我们将这个合并和删除&lt; blank &gt;的过程记为, 将这个过程的输出记为, 有显然这是一个多对一映射, 即可能有多个可能的路径对应一种可能的文本输出. 实际上, 我们所希望得到的就是 其中 即在所有可能的输出文本序列中找到概率最大的那一个, 而每一个输出文本序列的概率可以通过边沿概率分布公式得到, 即所有可能得到该输出文本的路径的概率之和. Loss Function 事实上直接优化得到上式也不是一件容易的事情. 因为这意味着我们需要遍历所有的路径来得到各个可能输出文本的概率. CTC 论文中提到两种方法可以简化这个步骤. 第一种方法比较简单, 我们可以简单地认为 其中, 直观上理解就是直接找概率最大的路径, 认为其对应的输出一般也是概率最大的. 这样我们其实只需要选择每个中出现概率最大的符号. 可以解释为希望找一个成绩最好的班级, 但查看每一个学生的成绩又太过于繁琐, 于是只看成绩最好的学生的成绩. 从上面的例子可以看出, 这种方法事实上过于简化了, 很多情况下我们可能会遇到这种情况. 于是论文中还提出了前缀搜索解码(Prefix Search Decoding), 这种方法的结果普遍好于第一种方法. 事实上如果我们考量所有可能的路径, 我们会发现其实有很多路径是重复计算的, 有很多路径也是明显不可能的, 这启发我们使用动态规划和剪枝来去除冗余计算和淘汰不可能的路径. Prefix Search Decoding 算法类似于 HMM 模型中的前向-后向算法(F-B Algorithm). 我们首先定义 解释为经过步, 得到输出文本序列的概率. 从而我们可以得到递推关系 …未完待续… CTC 假设在给定输入的情况下, 输出是条件独立的(事实上在一些情况下该假设是不成立的, 因此这也是 CTC 的一个主要缺点). 根据条件概率公式, 可以把它分解为. 每一种输出序列都可以看成是一条路径, 可以将其视为计算不同路径概率. 如果我们遍历所有路径计算概率, 计算量将是非常巨大的, 举个例子, 假设输出有 10 种不同的符号, 一个语音序列被分拆成 40 帧, 那么可能的路径将是 ! 这是不可接受的. 幸运的是, 经过一些分析我们可以发现这种暴力算法中包含了很多冗余的计算, 熟悉算法的朋友可能已经发现了, 可以通过动态规划来高效地完成这一计算. 对于每一帧, 输出的概率分布 通常用 RNN 来实现." />
+<link rel="canonical" href="http://localhost:4000/2018/03/22/ctc_algorithem.html" />
+<meta property="og:url" content="http://localhost:4000/2018/03/22/ctc_algorithem.html" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-03-22T00:00:00+08:00" />
+<script type="application/ld+json">
+{"description":"CTC(Connectionist Temporal Classiﬁcation) 在神经网络训练中用于训练序列化的数据, 比如说语音, 手写文字(虽然手写文字是一张图, 但不同的文字之间可以认为是按一定序列进行输入的, 因为要考虑前后的约束关系). 在数据量剧增的今天, 我们可以非常容易地获取大量语音数据, 但遗憾的是这些语音通常没有非常仔细的标注. 如何李用深度学习和大量数据的优势是语音识别领域的一个难题. CTC 的提出为使用深度神经网络进行语音识别奠定了基础. 介绍 在语音识别领域存在的一个问题是, 我们的训练数据往往只是语音片段和对应的文本, 语音序列和文本长度不同, 并且不是对齐的, 也就是, 我们不知道语音中的哪一帧是属于一个字, 也不知道一个字的长短. 这是因为进行对齐标注是一件非常耗费人力和时间的事情. 并且人与人的语速不同, 导致不可能使用一种强制的规则来强制确定一个字的长短. 这种难以对齐的问题也出现在手写字体识别中, 因为每个字占的大小也是不确定的. CTC 正是为了解决这个问题而被提出的. CTC 用于把语音经过处理以后得到的特征映射为文本, 而对特征提取的过程并没有限制, 也即是说可以使用任何模型接到 CTC 中得到结果. 形式化问题 CTC 网络将输入划分成固定长度的帧. 我们的目标是对给定符号输出符号集(如汉字表, 字母表) 和训练数据集, , 训练集中每一个样本 包含一个由T个向量组成的 维语音序列 和输出文本 希望找到映射 . 事实上这个映射并不容易直接得到, CTC 通过一个巧妙的算法来得到这个映射. CTC 网络先将输入的 维长度为 向量序列 映射为输出的 维长度为的向量序列 . , 其中 表示时刻网络的第 个输出, 通常解释为输出低 个符号的概率. 这个过程表示为 . 通常由一个 RNN 网络来完成, 如上图所示的 Alignment. 如此我们可以看到, 一个输出 , 可以对应一条路径, 我们将其表示为 . 每一条路径的概率为 即一条路径的概率等于路径上各个符号输出概率的乘积(事实上, 这里是假设输出符号之间相互独立). 随后 CTC 需要对于连续相同的输出进行合并. 但是这种方法会出现一些问题, 比如说对于单词 hello, 输出的可能是 heelllooo, 进行合并以后会得到 helo 而不是 hello. 为了解决这个问题, CTC 中引入了一个特殊的 &lt; blank &gt; 字符, 最后这个字符是会被移去的. 我们期望它输出 heel&lt; blank &gt;loo, 最后就可以得到所期望的 hello. 使用&lt; blank &gt;还解决了语音中的停顿的问题, 同一段时间没有输出时, 也输出&lt; blank &gt;字符. 这时符号集我们将这个合并和删除&lt; blank &gt;的过程记为, 将这个过程的输出记为, 有显然这是一个多对一映射, 即可能有多个可能的路径对应一种可能的文本输出. 实际上, 我们所希望得到的就是 其中 即在所有可能的输出文本序列中找到概率最大的那一个, 而每一个输出文本序列的概率可以通过边沿概率分布公式得到, 即所有可能得到该输出文本的路径的概率之和. Loss Function 事实上直接优化得到上式也不是一件容易的事情. 因为这意味着我们需要遍历所有的路径来得到各个可能输出文本的概率. CTC 论文中提到两种方法可以简化这个步骤. 第一种方法比较简单, 我们可以简单地认为 其中, 直观上理解就是直接找概率最大的路径, 认为其对应的输出一般也是概率最大的. 这样我们其实只需要选择每个中出现概率最大的符号. 可以解释为希望找一个成绩最好的班级, 但查看每一个学生的成绩又太过于繁琐, 于是只看成绩最好的学生的成绩. 从上面的例子可以看出, 这种方法事实上过于简化了, 很多情况下我们可能会遇到这种情况. 于是论文中还提出了前缀搜索解码(Prefix Search Decoding), 这种方法的结果普遍好于第一种方法. 事实上如果我们考量所有可能的路径, 我们会发现其实有很多路径是重复计算的, 有很多路径也是明显不可能的, 这启发我们使用动态规划和剪枝来去除冗余计算和淘汰不可能的路径. Prefix Search Decoding 算法类似于 HMM 模型中的前向-后向算法(F-B Algorithm). 我们首先定义 解释为经过步, 得到输出文本序列的概率. 从而我们可以得到递推关系 …未完待续… CTC 假设在给定输入的情况下, 输出是条件独立的(事实上在一些情况下该假设是不成立的, 因此这也是 CTC 的一个主要缺点). 根据条件概率公式, 可以把它分解为. 每一种输出序列都可以看成是一条路径, 可以将其视为计算不同路径概率. 如果我们遍历所有路径计算概率, 计算量将是非常巨大的, 举个例子, 假设输出有 10 种不同的符号, 一个语音序列被分拆成 40 帧, 那么可能的路径将是 ! 这是不可接受的. 幸运的是, 经过一些分析我们可以发现这种暴力算法中包含了很多冗余的计算, 熟悉算法的朋友可能已经发现了, 可以通过动态规划来高效地完成这一计算. 对于每一帧, 输出的概率分布 通常用 RNN 来实现.","author":{"@type":"Person","name":"Phree"},"@type":"BlogPosting","url":"http://localhost:4000/2018/03/22/ctc_algorithem.html","headline":"语音识别中的 CTC 算法详解","dateModified":"2018-03-22T00:00:00+08:00","datePublished":"2018-03-22T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/03/22/ctc_algorithem.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>语音识别中的 CTC 算法详解 | Phree Dream</title>
+    <meta name="description" content="CTC(Connectionist Temporal Classiﬁcation)在神经网络训练中用于训练序列化的数据, 比如说语音, 手写文字(虽然手写文字是一张图, 但不同的文字之间可以认为是按一定序列进行输入的, 因为要考虑前后的约束关系). 在数据量剧增的今天, 我们可以非常容易地获取大量语音数据, 但遗...">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+    
+    <!-- Logo and title -->
+	<div class="branding">
+		<a href="/">
+			<img class="avatar" src="/assets/img/triangle.svg" alt=""/>
+		</a>
+
+		<h1 class="site-title">
+			<a href="/">Phree Dream</a>
+		</h1>
+	</div>
+    
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+    
+    <!-- Menu -->
+    <ul>
+        
+        
+        
+        
+        <li>
+            <a class="clear" href="/about/">
+                关于
+            </a>
+        </li>
+        
+        
+        
+        <li>
+            <a class="clear" href="/archives/">
+                归档
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        
+        <li>
+            <a class="clear" href="http://localhost:4000/search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://localhost:4000/tags">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+    </ul>
+        
+	</nav>
+</header>
+
+    <div class="content">
+      <article >
+  <header id="main" style="background-image: url('/')">
+    <h1 id="%E8%AF%AD%E9%9F%B3%E8%AF%86%E5%88%AB%E4%B8%AD%E7%9A%84+CTC+%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3" class="title">语音识别中的 CTC 算法详解</h1>
+    <p class="meta">
+    March 22, 2018
+     - Phree
+    </p>
+  </header>
+  <section class="post-content"><h2 id="ctcconnectionist-temporal-classiﬁcation">CTC(Connectionist Temporal Classiﬁcation)</h2>
+<p>在神经网络训练中用于训练序列化的数据, 比如说语音, 手写文字(虽然手写文字是一张图, 但不同的文字之间可以认为是按一定序列进行输入的, 因为要考虑前后的约束关系). 在数据量剧增的今天, 我们可以非常容易地获取大量语音数据, 但遗憾的是这些语音通常没有非常仔细的标注. 如何李用深度学习和大量数据的优势是语音识别领域的一个难题. CTC 的提出为使用深度神经网络进行语音识别奠定了基础.</p>
+<h3 id="介绍">介绍</h3>
+<p>在语音识别领域存在的一个问题是, 我们的训练数据往往只是语音片段和对应的文本, 语音序列和文本长度不同, 并且不是对齐的, 也就是, 我们不知道语音中的哪一帧是属于一个字, 也不知道一个字的长短. 这是因为进行对齐标注是一件非常耗费人力和时间的事情. 并且人与人的语速不同, 导致不可能使用一种强制的规则来强制确定一个字的长短. 这种难以对齐的问题也出现在手写字体识别中, 因为每个字占的大小也是不确定的.
+CTC 正是为了解决这个问题而被提出的. CTC 用于把语音经过处理以后得到的特征映射为文本, 而对特征提取的过程并没有限制, 也即是说可以使用任何模型接到 CTC 中得到结果.</p>
+
+<p><img src="/assets/img/ctc/alignment.svg" alt="alignment" /></p>
+
+<h4 id="形式化问题">形式化问题</h4>
+<p>CTC 网络将输入划分成固定长度的帧. 我们的目标是对给定符号输出符号集(如汉字表, 字母表)</p>
+
+<script type="math/tex; mode=display">\boldsymbol{L^*}</script>
+
+<p>和训练数据集, <script type="math/tex">\mathcal{D}</script>, 训练集中每一个样本 <script type="math/tex">\mathbf{(x,z)}</script>包含一个由T个向量组成的 <script type="math/tex">m</script> 维语音序列</p>
+
+<script type="math/tex; mode=display">\mathbf{x}=\{x_1, x_2,...,x_T\}</script>
+
+<p>和输出文本</p>
+
+<script type="math/tex; mode=display">\mathbf{z}=\{z_1,z_2,...,z_U\}</script>
+
+<p>希望找到映射 
+<script type="math/tex">\mathbf{z}=h(\mathbf{x})</script> .
+事实上这个映射并不容易直接得到, CTC 通过一个巧妙的算法来得到这个映射.
+CTC 网络先将输入的 <script type="math/tex">m</script> 维长度为 <script type="math/tex">T</script> 向量序列 <script type="math/tex">\mathbf{x}</script> 映射为输出的 <script type="math/tex">n</script> 维长度为<script type="math/tex">T</script>的向量序列 <script type="math/tex">\mathbf{y}</script>. <script type="math/tex">\mathbf{y}=\{\mathbf{y^1, y^2, ..., y^T}\}</script>,</p>
+
+<script type="math/tex; mode=display">\mathbf{y^t}=\{y^t_1, y^t_2, ..., y^t_m\}</script>
+
+<p>其中 <script type="math/tex">y^t_k</script> 表示<script type="math/tex">t</script>时刻网络的第 <script type="math/tex">k</script> 个输出, 通常解释为输出低 <script type="math/tex">k</script>个符号的概率.
+这个过程表示为
+<script type="math/tex">\mathscr{N}:(\mathbb{R}^m)^T\mapsto (\mathbb{R}^n)^T</script>. 
+通常由一个 RNN 网络来完成, 如上图所示的 Alignment.
+如此我们可以看到, 一个输出 <script type="math/tex">\mathbf{y}</script>, 可以对应一条路径, 我们将其表示为 <script type="math/tex">\pi</script>. 每一条路径的概率为</p>
+
+<script type="math/tex; mode=display">p(\pi|\mathbf{x})=\prod _{t=1}^Ty^t_{\pi_t}, \forall \pi \in L^T</script>
+
+<p>即一条路径的概率等于路径上各个符号输出概率的乘积(事实上, 这里是假设输出符号之间相互独立).
+随后 CTC 需要对于连续相同的输出进行合并. 但是这种方法会出现一些问题, 比如说对于单词 hello, 输出的<script type="math/tex">\mathbf{y}</script>可能是 heelllooo, 进行合并以后会得到 helo 而不是 hello. 为了解决这个问题, CTC 中引入了一个特殊的 &lt; blank &gt; 字符, 最后这个字符是会被移去的. 我们期望它输出 heel&lt; blank &gt;loo, 最后就可以得到所期望的 hello. 使用&lt; blank &gt;还解决了语音中的停顿的问题, 同一段时间没有输出时, 也输出&lt; blank &gt;字符. 这时符号集<script type="math/tex">% <![CDATA[
+L'=L\cup <blank> %]]></script>我们将这个合并和删除&lt; blank &gt;的过程记为<script type="math/tex">\mathcal{B}:L^{'T}\mapsto L^{\le T}</script>, 将这个过程的输出记为<script type="math/tex">l</script>, 有<script type="math/tex">\mathbf{l}=\mathcal{B}(\pi)</script>显然这是一个多对一映射, 即可能有多个可能的路径对应一种可能的文本输出.
+实际上, 我们所希望得到的就是</p>
+
+<script type="math/tex; mode=display">h(\mathbf{x})=\arg \max_{l\in L^{\le T}}p(\mathbf{l|x})</script>
+
+<p>其中</p>
+
+<script type="math/tex; mode=display">p(\mathbf{l}|\mathbf{x})=\sum_{\pi}p(\pi|x), \pi \in \{\pi|\mathcal{B}(\pi)=\mathbf{l}\}</script>
+
+<p>即在所有可能的输出文本序列中找到概率最大的那一个, 而每一个输出文本序列的概率可以通过边沿概率分布公式得到, 即所有可能得到该输出文本的路径的概率之和.</p>
+
+<h3 id="loss-function">Loss Function</h3>
+<p>事实上直接优化得到上式也不是一件容易的事情. 因为这意味着我们需要遍历所有的路径来得到各个可能输出文本的概率. CTC 论文中提到两种方法可以简化这个步骤.
+第一种方法比较简单, 我们可以简单地认为</p>
+
+<script type="math/tex; mode=display">h(\mathbf{x})\approx \mathcal{B}(\pi^*)</script>
+
+<p>其中,</p>
+
+<script type="math/tex; mode=display">\pi^*=\arg \max _{\pi\in N^t}p(\pi|\mathbf{x})</script>
+
+<p>直观上理解就是直接找概率最大的路径, 认为其对应的输出一般也是概率最大的. 这样我们其实只需要选择每个<script type="math/tex">t</script>中出现概率最大的符号. 可以解释为希望找一个成绩最好的班级, 但查看每一个学生的成绩又太过于繁琐, 于是只看成绩最好的学生的成绩.
+从上面的例子可以看出, 这种方法事实上过于简化了, 很多情况下我们可能会遇到这种情况. 于是论文中还提出了前缀搜索解码(Prefix Search Decoding), 这种方法的结果普遍好于第一种方法.
+事实上如果我们考量所有可能的路径, 我们会发现其实有很多路径是重复计算的, 有很多路径也是明显不可能的, 这启发我们使用动态规划和剪枝来去除冗余计算和淘汰不可能的路径. Prefix Search Decoding 算法类似于 HMM 模型中的前向-后向算法(F-B Algorithm).
+我们首先定义</p>
+
+<script type="math/tex; mode=display">\alpha_t(x)\equiv \sum_{\mathcal{B}(\pi_{1:t})=\mathbf{1:s}}\prod_{t'=1}^{t}y^{t'}_{\pi_{t'}}</script>
+
+<p>解释为经过<script type="math/tex">t</script>步, 得到输出文本序列<script type="math/tex">\mathbf{l}_{1:s}</script>的概率.
+从而我们可以得到递推关系
+…未完待续…</p>
+
+<p>CTC 假设在给定输入的情况下, 输出是条件独立的(事实上在一些情况下该假设是不成立的, 因此这也是 CTC 的一个主要缺点). 根据条件概率公式, 可以把它分解为. 每一种输出序列都可以看成是一条路径, 可以将其视为计算不同路径概率. 如果我们遍历所有路径计算概率, 计算量将是非常巨大的, 举个例子, 假设输出有 10 种不同的符号, 一个语音序列被分拆成 40 帧, 那么可能的路径将是 <script type="math/tex">10^{40}</script>! 这是不可接受的. 幸运的是, 经过一些分析我们可以发现这种暴力算法中包含了很多冗余的计算, 熟悉算法的朋友可能已经发现了, 可以通过动态规划来高效地完成这一计算.
+对于每一帧, 输出的概率分布 <script type="math/tex">P(a_t|X)</script> 通常用 RNN 来实现.</p>
+</section>
+   
+   <!-- Tag list -->
+  
+  
+
+
+    <footer>
+        <div class="tag-list">
+        
+          <div class="meta">Tags</div>
+        
+            
+        
+          <a class="button" href="/tags#算法">
+            <p><i class="fa fa-tag fa-fw"></i> 算法</p>
+          </a>
+        
+          <a class="button" href="/tags#语音识别">
+            <p><i class="fa fa-tag fa-fw"></i> 语音识别</p>
+          </a>
+        
+        </div>
+    </footer>
+  
+
+    
+</article>
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'phree-dream-1';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>启用JavaScript以查看评论.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>上一篇</p>
+      <a href="/2018/02/26/bn2.html">
+        Summary of Batchnorm Algorithm
+      </a>
+  </div>
+  
+  
+</div>
+
+    </div>
+    
+<footer class="site-footer">
+    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/sylhare/Type-on-Strap">Type on Strap</a>
+</p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+	<a href="http://localhost:4000////feed.xml" title="订阅RSS">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:iphreeliu@gmail.com" title="邮箱">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/phreer" title="关注 GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+
+  </body>
+</html>
