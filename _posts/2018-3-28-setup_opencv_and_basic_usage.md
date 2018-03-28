@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Qt 中 OpenCV 环境的配置
+title: Windows 平台下 Qt OpenCV 环境的配置
 author: Phree
 date: 2018-3-28
 ---
