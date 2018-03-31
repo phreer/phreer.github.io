@@ -169,8 +169,52 @@
       <span>
           <header>
             <h1>
+              <a class="post-link" href="/2018/03/31/mnist_model.html">
+                使用 CNNs 实现的 Mnist 分类模型及 Demo, 正确率 0.996+
+              </a>
+            </h1>
+            <p class="meta">
+              March 31, 2018
+            </p>
+          </header>
+          <div class="excerpt">
+            Features
+
+  99.619% 测试集正确率
+  可视化网络激活层的 feature map
+  拍照识别数字
+
+
+所使用的技术
+深度学习技术
+
+  He Initializer, 即
+
+
+
+
+分别为输入, 输出神经元的个数.
+
+  Residual Block
+  Dropout
+  Adam Optimizer
+  Data Augmentation
+  Model Emsemble
+为了增强泛化能力, 一共训练了 3 个网络, 将 3 个模型的输出加到一起进行判断. 训练过程...
+            <!--<a class="button" href="/2018/03/31/mnist_model.html">
+              继续阅读
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
               <a class="post-link" href="/2018/03/28/setup_opencv_and_basic_usage.html">
-                Qt 中 OpenCV 环境的配置
+                Windows 平台下 Qt OpenCV 环境的配置
               </a>
             </h1>
             <p class="meta">
@@ -184,9 +228,7 @@ OpenCV 是一个开源的计算机视觉库, 实现了很多计算机视觉, 图
 当前使用 C++ 接口会更加方便一些, 因为 OpenCV 会实现自动管理内存. 主要体现在使用 Mat 数据结构等.
 
 环境配置
-
-  从官网 下载对应的版本.
-  Win平台有预编译的版本...
+OpenCV 在 Win 平台的配置还是很简单的, 因为有已...
             <!--<a class="button" href="/2018/03/28/setup_opencv_and_basic_usage.html">
               继续阅读
             </a>-->
