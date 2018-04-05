@@ -88,7 +88,7 @@ sass:
   sass_dir: _sass
   style: :compressed
 #plugins: [jekyll-paginate, jekyll-seo-tag]
-plugins:
+plugins: >
   - jekyll-paginate
   - jekyll-seo-tag
   - jekyll-sitemap
