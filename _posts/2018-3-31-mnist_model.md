@@ -88,7 +88,7 @@ $$r$$ 为输入像素, $$\gamma$$ 为 3.0 ~ 7.0 之间的常数.
 
 选择一张图片, 并进行测试
 
-![Detect]({{ site.baseurl }}/assets/img/2018-3-31/detect.jpg)
+![Detect]({{ site.baseurl }}/assets/img/2018-3-31/detect.JPG)
 
 可以看到, 测试结果正确. 本人尝试了一些手写体和印刷体数字, 都能够识别正确.
 
