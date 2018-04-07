@@ -46,8 +46,8 @@ theme_settings:
   # Scripts / Features 
   google_analytics: UA-110451933-1 # Tracking ID, e.g. "UA-000000-01"
   disqus_shortname: phree-dream-1
-  katex: false # Enable if using math markup
-  mathjax: true
+  katex: true # Enable if using math markup
+  mathjax: false
   portfolio: false
   search: true
   tags: true
