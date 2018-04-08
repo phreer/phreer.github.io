@@ -114,3 +114,43 @@ header {
         vertical-align: middle;
     }
 }
+
+div.colms-md-three-forth {
+    width: 80%;
+    float: left;
+    padding-right: 10px;
+}
+div.colms-md-one-forth {
+    width: 20%;
+    float: left;
+}
+section.post-directory {
+    width: 200px;
+    background: #fff;
+    padding-bottom: 1em;
+    border: 1px solid #efefef;
+    border-radius: 5px;
+    color: #999;
+    p{
+        margin-top: 1em;
+        font-color: $text-color;
+    }
+    ul, ol {
+        font-size: 0.875em;
+        padding-left: 1.5em;
+        list-style: none;
+    }
+    strong {
+        font-family: $font-family-headings;
+        border-left: 5px solid #999;
+        padding: 2px 5px 2px 15px;
+    }
+    a {
+        text-decoration: none;
+        color: $text-color;
+    }
+    a:hover, a:active, a.on {
+        color: $link-color;
+    }
+}
+

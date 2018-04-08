@@ -5,16 +5,25 @@ layout: default
   <header id="main" style="background-image: url('{{ site.baseurl }}/{{ page.feature-img }}')">
     <h1 id="{{ page.title | cgi_escape }}" class="title">{{ page.title }}</h1>
     <p class="meta">
-    {{ page.date | date: "%B %-d, %Y" }}
+    {{ page.date | date: "%b %-d, %Y" }}
     {% if page.author %} - {{ page.author }}{% endif %}
     </p>
   </header>
-  <section class="post-content">{{ content }}</section>
+  <div class="colms">
+  <div class="colms-md-three-forth">
+    <section class="post-content">{{ content }}</section>
+    <section class="post-tag">
+    {% capture tag_list %}
+    {{ page.tags | join: "|"}}
+    {% endcapture %}
+    {% include tags_list.html tags=tag_list %}
+    </section>
+  </div>
+
+  <div class="colms-md-one-forth">{% include toc.html %}</div>
+  </div>
+    <!-- Tag list -->
    
-   <!-- Tag list -->
-  {% capture tag_list %}{{ page.tags | join: "|"}}{% endcapture %}
-  {% include tags_list.html tags=tag_list %}
-    
 </article>
 
 <!-- Disqus -->

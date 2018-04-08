@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
+    <!--Baidu tracker verification-->
+    <meta name="baidu-site-verification" content="dOp9xdAi2j" />    
     <!-- JQuery (used for bootstrap and jekyll search) -->
     <script src="/assets/js/jquery-3.2.1.min.js" ></script>
     
@@ -31,15 +32,13 @@
     <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
     
 
-    <!-- KaTeX 0.8.3 -->
-    
-    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
-    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
-    <script src="/assets/js/katex.min.js">
-    </script>
     
 
+    
+    <!-- Mathjax -->
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
     <!-- Google Analytics -->
     
     <script>
@@ -137,6 +136,8 @@
         
         
         
+        
+        
          
         
         
@@ -164,11 +165,13 @@
   <header id="main" style="background-image: url('/')">
     <h1 id="Windows+%E5%B9%B3%E5%8F%B0%E4%B8%8B+Qt+OpenCV+%E7%8E%AF%E5%A2%83%E7%9A%84%E9%85%8D%E7%BD%AE" class="title">Windows 平台下 Qt OpenCV 环境的配置</h1>
     <p class="meta">
-    March 28, 2018
+    Mar 28, 2018
      - Phree
     </p>
   </header>
-  <section class="post-content"><h2 id="opencv-简介">OpenCV 简介</h2>
+  <div class="colms">
+  <div class="colms-md-three-forth">
+    <section class="post-content"><h2 id="opencv-简介">OpenCV 简介</h2>
 <p>OpenCV 是一个开源的计算机视觉库, 实现了很多计算机视觉, 图像处理相关的算法, 如基本的图像操作, 物体检测, 光流等等, 在相关领域有着非常广泛的应用. OpenCV 提供了低层的图像运算功能, 也有高级的算法, 同时提供了 C++, Python, Java 接口.</p>
 
 <p>当前使用 C++ 接口会更加方便一些, 因为 OpenCV 会实现自动管理内存. 主要体现在使用 Mat 数据结构等.</p>
@@ -259,14 +262,45 @@ int main()  {
 
 <p>如果能够正常编译运行, 那恭喜啦, 配置成功了. 如果出现找不到头文件的错误, 则应该是 include path 没有设置好. 如果出现 LNK 2019 错误, 则是 lib 文件没有设置成功.</p>
 </section>
-   
-   <!-- Tag list -->
-  
-  
-
-
-
+    <section class="post-tag">
     
+    
+
+
+    <footer>
+        <div class="tag-list">
+        
+          <div class="meta">Tags</div>
+        
+            
+        
+          <a class="button" href="/tags#
+    
+    ">
+            <p><i class="fa fa-tag fa-fw"></i> 
+    
+    </p>
+          </a>
+        
+        </div>
+    </footer>
+  
+
+    </section>
+  </div>
+
+  <div class="colms-md-one-forth"><div id="post-directory-module" class="mobile-hidden">
+    <section class="post-directory">
+
+    <dl></dl>
+    </section>
+</div>
+
+<script src="/assets/js/jquery.toc.js"></script>
+</div>
+  </div>
+    <!-- Tag list -->
+   
 </article>
 
 <!-- Disqus -->
@@ -306,6 +340,7 @@ int main()  {
   </div>
   
 </div>
+
 
     </div>
     

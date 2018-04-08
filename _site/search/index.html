@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
+    <!--Baidu tracker verification-->
+    <meta name="baidu-site-verification" content="dOp9xdAi2j" />    
     <!-- JQuery (used for bootstrap and jekyll search) -->
     <script src="/assets/js/jquery-3.2.1.min.js" ></script>
     
@@ -31,15 +32,13 @@
     <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
     
 
-    <!-- KaTeX 0.8.3 -->
-    
-    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
-    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
-    <script src="/assets/js/katex.min.js">
-    </script>
     
 
+    
+    <!-- Mathjax -->
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
     <!-- Google Analytics -->
     
     <script>
@@ -132,6 +131,8 @@
         
         
         
+        
+        
          
         
         
@@ -182,6 +183,15 @@
             resultsContainer: document.getElementById('results-container'),
             json: [
                     
+                     
+                        {
+                          "title"    : "test math formula",
+                          "category" : "",
+                          "tags"     : " test",
+                          "url"      : "/2018/04/07/test_math.html",
+                          "date"     : "April 7, 2018",
+                          "content"  : "我想写一个行内公式 \(e^{i\pi}+1=0\)我想写一个行间公式这是标题1, Heading1这是标题2, Heading2这是标题3, Heading3这是标题4, Heading4这是标题5, Heading5这是标题六 Heading6这是标题1这是标题2这是标题3这是标题4这是标题5这是标题六这是标题1这是标题2这是标题3这是标题4这是标题5这是标题六这是标题1这是标题2这是标题3这是标题4这是标题5这是标题六这是标题1这是标题2这是标题3这是标题4这是标题5这是标题六这是标题1这是标题2这是标题3这是标题4这是标题5这是标题六  这是一个引用.This is a quote.这是强调, 这是斜体.这是代码:#include &lt;stdio&gt;int main(){    printf(\"Hello, world!\");}这是一个行内代码 print(\"Hello, world!\".I am in English."
+                        } ,
                      
                         {
                           "title"    : "使用 CNNs 实现的 Mnist 分类模型及 Demo, 正确率 0.996+",

@@ -5,7 +5,74 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://localhost:4000/</link>
     <description>Phree Dream, about AI, Deep Learning and Life</description>
-    <pubDate>Sun, 01 Apr 2018 00:21:59 +0800</pubDate>
+    <pubDate>Sun, 08 Apr 2018 20:31:04 +0800</pubDate>
+    
+      <item>
+        <title>test math formula</title>
+        <link>/2018/04/07/test_math.html</link>
+        <guid isPermaLink="true">/2018/04/07/test_math.html</guid>
+        <description>&lt;p&gt;我想写一个行内公式 \(e^{i\pi}+1=0\)
+我想写一个行间公式&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;e^x=\sum_{i=0}^{\infty} \frac{1}{i!}x^n&lt;/script&gt;
+
+&lt;h1 id=&quot;这是标题1-heading1&quot;&gt;这是标题1, Heading1&lt;/h1&gt;
+&lt;h2 id=&quot;这是标题2-heading2&quot;&gt;这是标题2, Heading2&lt;/h2&gt;
+&lt;h3 id=&quot;这是标题3-heading3&quot;&gt;这是标题3, Heading3&lt;/h3&gt;
+&lt;h4 id=&quot;这是标题4-heading4&quot;&gt;这是标题4, Heading4&lt;/h4&gt;
+&lt;h5 id=&quot;这是标题5-heading5&quot;&gt;这是标题5, Heading5&lt;/h5&gt;
+&lt;h6 id=&quot;这是标题六-heading6&quot;&gt;这是标题六 Heading6&lt;/h6&gt;
+&lt;h1 id=&quot;这是标题1&quot;&gt;这是标题1&lt;/h1&gt;
+&lt;h2 id=&quot;这是标题2&quot;&gt;这是标题2&lt;/h2&gt;
+&lt;h3 id=&quot;这是标题3&quot;&gt;这是标题3&lt;/h3&gt;
+&lt;h4 id=&quot;这是标题4&quot;&gt;这是标题4&lt;/h4&gt;
+&lt;h5 id=&quot;这是标题5&quot;&gt;这是标题5&lt;/h5&gt;
+&lt;h6 id=&quot;这是标题六&quot;&gt;这是标题六&lt;/h6&gt;
+&lt;h1 id=&quot;这是标题1-1&quot;&gt;这是标题1&lt;/h1&gt;
+&lt;h2 id=&quot;这是标题2-1&quot;&gt;这是标题2&lt;/h2&gt;
+&lt;h3 id=&quot;这是标题3-1&quot;&gt;这是标题3&lt;/h3&gt;
+&lt;h4 id=&quot;这是标题4-1&quot;&gt;这是标题4&lt;/h4&gt;
+&lt;h5 id=&quot;这是标题5-1&quot;&gt;这是标题5&lt;/h5&gt;
+&lt;h6 id=&quot;这是标题六-1&quot;&gt;这是标题六&lt;/h6&gt;
+&lt;h1 id=&quot;这是标题1-2&quot;&gt;这是标题1&lt;/h1&gt;
+&lt;h2 id=&quot;这是标题2-2&quot;&gt;这是标题2&lt;/h2&gt;
+&lt;h3 id=&quot;这是标题3-2&quot;&gt;这是标题3&lt;/h3&gt;
+&lt;h4 id=&quot;这是标题4-2&quot;&gt;这是标题4&lt;/h4&gt;
+&lt;h5 id=&quot;这是标题5-2&quot;&gt;这是标题5&lt;/h5&gt;
+&lt;h6 id=&quot;这是标题六-2&quot;&gt;这是标题六&lt;/h6&gt;
+&lt;h1 id=&quot;这是标题1-3&quot;&gt;这是标题1&lt;/h1&gt;
+&lt;h2 id=&quot;这是标题2-3&quot;&gt;这是标题2&lt;/h2&gt;
+&lt;h3 id=&quot;这是标题3-3&quot;&gt;这是标题3&lt;/h3&gt;
+&lt;h4 id=&quot;这是标题4-3&quot;&gt;这是标题4&lt;/h4&gt;
+&lt;h5 id=&quot;这是标题5-3&quot;&gt;这是标题5&lt;/h5&gt;
+&lt;h6 id=&quot;这是标题六-3&quot;&gt;这是标题六&lt;/h6&gt;
+&lt;h1 id=&quot;这是标题1-4&quot;&gt;这是标题1&lt;/h1&gt;
+&lt;h2 id=&quot;这是标题2-4&quot;&gt;这是标题2&lt;/h2&gt;
+&lt;h3 id=&quot;这是标题3-4&quot;&gt;这是标题3&lt;/h3&gt;
+&lt;h4 id=&quot;这是标题4-4&quot;&gt;这是标题4&lt;/h4&gt;
+&lt;h5 id=&quot;这是标题5-4&quot;&gt;这是标题5&lt;/h5&gt;
+&lt;h6 id=&quot;这是标题六-4&quot;&gt;这是标题六&lt;/h6&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;这是一个引用.
+This is a quote.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;这是&lt;strong&gt;强调&lt;/strong&gt;, 这是&lt;em&gt;斜体&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;这是代码:&lt;/p&gt;
+
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;stdio&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello, world!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;这是一个行内代码 &lt;code class=&quot;highlighter-rouge&quot;&gt;print(&quot;Hello, world!&quot;&lt;/code&gt;.
+I am in English.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 07 Apr 2018 00:00:00 +0800</pubDate>
+      </item>
     
       <item>
         <title>使用 CNNs 实现的 Mnist 分类模型及 Demo, 正确率 0.996+</title>

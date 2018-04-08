@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
+    <!--Baidu tracker verification-->
+    <meta name="baidu-site-verification" content="dOp9xdAi2j" />    
     <!-- JQuery (used for bootstrap and jekyll search) -->
     <script src="/assets/js/jquery-3.2.1.min.js" ></script>
     
@@ -31,15 +32,13 @@
     <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
     
 
-    <!-- KaTeX 0.8.3 -->
-    
-    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
-    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
-    <script src="/assets/js/katex.min.js">
-    </script>
     
 
+    
+    <!-- Mathjax -->
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
     <!-- Google Analytics -->
     
     <script>
@@ -137,6 +136,8 @@
         
         
         
+        
+        
          
         
         
@@ -164,11 +165,13 @@
   <header id="main" style="background-image: url('/')">
     <h1 id="%E4%BD%BF%E7%94%A8+CNNs+%E5%AE%9E%E7%8E%B0%E7%9A%84+Mnist+%E5%88%86%E7%B1%BB%E6%A8%A1%E5%9E%8B%E5%8F%8A+Demo%2C+%E6%AD%A3%E7%A1%AE%E7%8E%87+0.996%2B" class="title">使用 CNNs 实现的 Mnist 分类模型及 Demo, 正确率 0.996+</h1>
     <p class="meta">
-    March 31, 2018
+    Mar 31, 2018
      - Phree
     </p>
   </header>
-  <section class="post-content"><h2 id="features">Features</h2>
+  <div class="colms">
+  <div class="colms-md-three-forth">
+    <section class="post-content"><h2 id="features">Features</h2>
 <ul>
   <li>99.619% 测试集正确率</li>
   <li>可视化网络激活层的 feature map</li>
@@ -382,10 +385,9 @@
   <li>http://link.springer.com/10.1007/978-3-319-10590-1_53%5Cnhttp://arxiv.org/abs/1311.2901%5Cnpapers3://publication/uuid/44feb4b1-873a-4443-8baa-1730ecd16291</li>
 </ul>
 </section>
-   
-   <!-- Tag list -->
-  
-  
+    <section class="post-tag">
+    
+    
 
 
     <footer>
@@ -395,19 +397,37 @@
         
             
         
-          <a class="button" href="/tags#Mnist">
-            <p><i class="fa fa-tag fa-fw"></i> Mnist</p>
+          <a class="button" href="/tags#
+    Mnist">
+            <p><i class="fa fa-tag fa-fw"></i> 
+    Mnist</p>
           </a>
         
-          <a class="button" href="/tags#分类">
-            <p><i class="fa fa-tag fa-fw"></i> 分类</p>
+          <a class="button" href="/tags#分类
+    ">
+            <p><i class="fa fa-tag fa-fw"></i> 分类
+    </p>
           </a>
         
         </div>
     </footer>
   
 
-    
+    </section>
+  </div>
+
+  <div class="colms-md-one-forth"><div id="post-directory-module" class="mobile-hidden">
+    <section class="post-directory">
+
+    <dl></dl>
+    </section>
+</div>
+
+<script src="/assets/js/jquery.toc.js"></script>
+</div>
+  </div>
+    <!-- Tag list -->
+   
 </article>
 
 <!-- Disqus -->
@@ -439,7 +459,15 @@
   </div>
   
   
+  <div id="next-post" class="post-nav-post">
+      <p>下一篇</p>
+      <a href="/2018/04/07/test_math.html">
+        test math formula
+      </a>
+  </div>
+  
 </div>
+
 
     </div>
     
