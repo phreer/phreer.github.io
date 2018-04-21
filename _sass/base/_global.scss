@@ -42,7 +42,7 @@ h6 {
     font-family: $font-family-headings;
     font-weight: $font-weight-headings;
     line-height: 1.3;
-    margin: 0.67em 0;
+    margin: 1em 0 0.5em 0;
     a {
         color: $text-color;
     }
@@ -201,4 +201,17 @@ img[align=right] {
         position: fixed;
         box-shadow: 1pt 1pt 1pt rgba(0,0,0,.125);
     }
+}
+.fig{
+    margin: 1em 0;
+    padding: 1em 2em;
+    border-top: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
+}
+.figcenter {
+    text-align: center;
+}
+.figcaption {
+    text-align: left;
+    font-size: 0.875em;
 }

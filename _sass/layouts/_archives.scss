@@ -6,6 +6,9 @@
     float: right;
     font-size: 0.7em;
     font-family: $font-family-main;
+    @media screen and (max-width: $break){
+        display: none;
+    }
   }
 }
 

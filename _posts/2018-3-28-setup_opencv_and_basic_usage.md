@@ -2,6 +2,8 @@
 layout: post
 title: Windows 平台下 Qt OpenCV 环境的配置
 author: Phree
+tags: [环境搭建, opencv, Qt]
+date: 2018-3-28
 date: 2018-3-28
 ---
 
@@ -70,7 +72,7 @@ LIBS += -L"C:\Program Files\opencv\build\x64\vc14\lib" \
 - 修改 .pro 文件以后执行 Buld -> qmake, 然后再进行编译.
 
 ## 一个简单的测试程序
-```
+```cpp
 #include<iostream>  
 #include <opencv2/core/core.hpp>  
 #include <opencv2/highgui/highgui.hpp>  
