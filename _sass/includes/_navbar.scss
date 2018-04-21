@@ -1,6 +1,7 @@
 .site-header {
     padding: 0% $padding-x-small * 5;
     padding-top: $padding-x-small / 3;
+    padding-bottom: $padding-x-small / 3;
     background: $brand-color;
     display: inline-block;
     float: left;
@@ -95,6 +96,7 @@
         }
         .site-title {
             margin-top: 7px;
+            margin-bottom: 7px;
         }
     }
 

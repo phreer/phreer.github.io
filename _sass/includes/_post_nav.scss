@@ -19,4 +19,16 @@
     #next-post {
         float: right;
     }
+
+    @media screen and (max-width: $break){
+        text-align: center;
+        #previous-post {
+            float: none;
+        }
+        #next-post {
+            float: none;
+        }
+    }
 }
+
+
