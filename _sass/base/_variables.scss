@@ -1,6 +1,8 @@
 // Typography
-$font-family-main: "Georgia", 'Source Sans Pro', Helvetica, Arial, sans-serifi,NSimSun, SimSun, "Microsoft YaHei", "PingFang SC";
-$font-family-headings: 'Source Sans Pro', Helvetica, Arial, sans-serif, "Microsoft YaHei", "PingFang SC";
+$font-family-main: "Helvetica Neue", Helvetica, Tahoma, Verdana, Arial, "Georgia", "Hiragino Sans GB", "PingFang SC",  "Microsoft YaHei", "WenQuanYi Micro Hei", "Source Sans Pro", sans-serif;
+$font-family-headings: 'Source Sans Pro', Helvetica, Arial, sans-serif, "PingFang SC", "Microsoft YaHei";
+$font-weight-headings: 550;
+
 $font-family-ui: "Tw Cen MT", "Microsoft YaHei UI", 'Source Sans Pro', Helvetica, Arial, sans-serif, "Microsoft YaHei", "PingFang SC";
 $font-size: 1em;
 
@@ -47,7 +49,7 @@ $sm-break: 450px;
 /*  Syntax highlighting  */
 // Syntax typography
 $monospace: Monaco, Consolas, "Lucida Console", monospace !default;
-$font-size-code: 0.75em !default; // ~12px
+$font-size-code: 0.875em !default; // ~14px
 $border-radius: 4px !default;
 
 
@@ -58,7 +60,7 @@ $base01: #2E3C43 !default;  // Lighter Background (Used for status bars)
 $base02: #314549 !default;  // Selection Background
 $base03: #546E7A !default;  // Comments, Invisibles, Line Highlighting
 $base04: #B2CCD6 !default;  // Dark Foreground (Used for status bars)
-$base05: #EEFFFF !default;  // Default Foreground, Caret, Delimiters, Operators
+$base05: #333 !default;  // Default Foreground, Caret, Delimiters, Operators
 $base06: #EEFFFF !default;  // Light Foreground (Not often used)
 $base07: #FFFFFF !default;  // Light Background (Not often used)
 $base08: #F07178 !default;  // Variables, XML Tags, Markup Link Text, Markup Lists, Diff Deleted

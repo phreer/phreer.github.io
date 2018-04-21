@@ -6,7 +6,7 @@ url: "https://phreer.github.io"
 theme_settings:
   # Meta
   title: Phree Dream
-  avatar: assets/img/triangle.svg
+  avatar:
   favicon: assets/favicon.ico
   gravatar: 5ac849d1d7af7fed
   description: "Phree Dream, about AI, Deep Learning and Life" # used by search engines
@@ -96,6 +96,6 @@ sass:
 plugins: 
   - jekyll-paginate
   - jekyll-seo-tag
-  - jekyll-sitemap
+  #- jekyll-sitemap
 theme: type-on-strap # If using the theme as a jekyll theme gem
 exclude: ["Gemfile", "Gemfile.lock", "type-on-strap.gemspec", "*.gem", "LICENSE", "README.md", "screenshot.png"]
