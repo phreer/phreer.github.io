@@ -1,6 +1,6 @@
 # SITE CONFIGURATION
 baseurl: ""
-url: "https://phreer.github.io"
+url: "http://www.phreedream.com"
 
 # THEME-SPECIFIC CONFIGURATION
 theme_settings:
