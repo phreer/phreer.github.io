@@ -43,7 +43,7 @@ $$
 
 提取所用的大部分特征都是外貌特征 (apperance features), 例如颜色, 梯度, 边沿等. 其他一些基于特征提取的模型还包括 color histogram, graph model, spatial co-occurrence representation model, principal axis, rectangle region histogram, part-based models 等 [2].
 
-比如论文 [Learning Mid-level Filters for Person Re-identification](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6909420) 中使用一致聚类 (coherent cluster) 的方法来学习中层滤波器 (middle-level filters), 中层滤波器能提取人体不同部位尽可能具有辨识度同时又具有泛化能力的块 (patch). 所谓中层是指其提取的是区别于普遍块 (general patch) 和稀有块 (rare patch) 的有效块 (effective patch). 在普遍性和辨识度之间保持一个平衡是非常重要的, 太过于通用的块不能很好地区分不同的人, 然而如果只盯着行人的部分显著但不通用的特征又会陷入过拟合, 比如说假如有一个人穿了一件非常个性的衣服, 如果我们仅凭这个来辨别这个人, 那当他穿这件衣服的时候辨识度将会很高, 当不穿这件衣服时就很可能完全失去了辨别能力.
+比如论文 [Learning Mid-level Filters for Person Re-identification](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6909420) 中使用一致聚类 (coherent cluster) 的方法来学习中层滤波器 (mid-level filters), 中层滤波器能提取人体不同部位尽可能具有辨识度同时又具有泛化能力的块 (patch). 所谓中层是指其提取的是区别于普遍块 (general patch) 和稀有块 (rare patch) 的有效块 (effective patch). 在普遍性和辨识度之间保持一个平衡是非常重要的, 太过于通用的块不能很好地区分不同的人, 然而如果只盯着行人的部分显著但不通用的特征又会陷入过拟合, 比如说假如有一个人穿了一件非常个性的衣服, 如果我们仅凭这个来辨别这个人, 那当他穿这件衣服的时候辨识度将会很高, 当不穿这件衣服时就很可能完全失去了辨别能力.
 
 关于颜色, 边沿, 纹理等的特征属于低层次特征, 其语义性不太明显. 而还有一些特征是基于属性的, 比如说是否戴帽子等, 是一种中层次特征.
 
