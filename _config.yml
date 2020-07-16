@@ -1,6 +1,5 @@
 # SITE CONFIGURATION
 baseurl: ""
-url: "http://www.phreedream.com"
 
 # THEME-SPECIFIC CONFIGURATION
 theme_settings:
