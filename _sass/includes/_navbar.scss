@@ -1,11 +1,10 @@
 .site-header {
-    padding: 0% $padding-x-small * 5;
-    padding-top: $padding-x-small / 3;
-    padding-bottom: $padding-x-small / 3;
+    width: $break;
+    padding: 0%;
+    padding-top: $padding-x-small;
+    padding-bottom: $padding-x-small;
+    margin: auto;
     background: $brand-color;
-    display: inline-block;
-    float: left;
-    width: 100%;
 
     a {
         color: $header-link-color;
@@ -90,7 +89,8 @@
 
 @media screen and (max-width: $break) {
     .site-header {
-	padding: 0% $padding-x-small;
+        padding: 0% $padding-x-small;
+        width: auto;
         img.avatar {
             margin-top: -7px;
         }

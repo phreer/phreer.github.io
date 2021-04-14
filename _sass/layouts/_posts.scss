@@ -4,6 +4,7 @@ article,
     border-bottom: 1px solid $border-color;
     float: left;
     width: 100%;
+    padding: 0%;
 }
 
 article {
@@ -17,6 +18,9 @@ article {
     .footnotes {
         font-size: 0.9em;
     }
+    .post-content {
+        padding: 0%;
+    }
 }
 
 footer {
@@ -27,7 +31,8 @@ footer {
     display: inline-block;
     text-align: center;
     .meta {
-        color: rgba($text-color, .5);
+        color: rgba($text-color, 0.5);
+        font-weight: 800;
         letter-spacing: 0.1em;
         display: inline;
         text-transform: uppercase;
@@ -117,7 +122,8 @@ header {
 }
 
 .post-nav-post {
-    padding: 1em;
+    padding-top: $padding-x-small;
+    padding-bottom: $padding-x-small;
 }
 
 div.colms-md-three-forth {
@@ -130,6 +136,11 @@ div.colms-md-one-forth {
     float: left;
 }
 
+article {
+    #main {
+        margin-top: 5em;
+    }
+}
 @media screen and (max-width: $break){
     div.colms-md-three-forth {
         width: 100%;
@@ -137,11 +148,6 @@ div.colms-md-one-forth {
     }
     div.colms-md-one-forth {
         display: none;
-    }
-    article {
-        #main{
-            margin-top: 5em;
-        }
     }
 }
 
@@ -152,15 +158,16 @@ section.post-directory {
     border: 1px solid #efefef;
     box-shadow: 1px 1px 2px rgba(0,0,0,.125);
     border-radius: 5px;
-    color: #999;
-    p{
+    color: $base00;
+    p {
         margin-top: 1em;
-        font-color: $text-color;
+        color: $text-color;
     }
     ul, ol {
-        font-size: 0.875em;
+        font-size: 1em;
         padding-left: 1.5em;
         list-style: circle;
+        margin-left: 0%;
     }
     strong {
         font-family: $font-family-headings;
@@ -174,6 +181,8 @@ section.post-directory {
     a:hover, a:active, a.on {
         color: $link-color;
     }
-
 }
 
+.post-tag {
+    padding-bottom: 1em;
+}

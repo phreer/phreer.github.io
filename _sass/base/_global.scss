@@ -164,7 +164,6 @@ embed,
 object,
 video {
     max-width: 100%;
-    padding: 0 10%;
 }
 
 img[align=left] {
@@ -204,7 +203,7 @@ img[align=right] {
 }
 .fig{
     margin: 1em 0;
-    padding: 1em 2em;
+    padding: $padding-small;
     border-top: 1px solid $border-color;
     border-bottom: 1px solid $border-color;
 }
@@ -213,5 +212,19 @@ img[align=right] {
 }
 .figcaption {
     text-align: left;
-    font-size: 0.875em;
+    font-size: 0.925em;
+    padding-top: $padding-x-small;
+}
+
+div.content {
+    width: auto;
+    padding: 0% $padding-x-small;
+}
+
+@media screen and (min-width: $break) {
+    div.content {
+        padding: 0%;
+        width: $break;
+        margin: auto;
+    }
 }
