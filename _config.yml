@@ -4,15 +4,15 @@ baseurl: ""
 # THEME-SPECIFIC CONFIGURATION
 theme_settings:
   # Meta
-  title: Phree Dream
+  title: PhreeLearning
   avatar:
   favicon: assets/favicon.ico
   gravatar: 5ac849d1d7af7fed
-  description: "Phree Dream, about AI, Deep Learning and Life" # used by search engines
+  description: "PhreeLearning, about AI, Deep Learning and Life" # used by search engines
 
   # Header and footer text
   header_text: > #two or three lines to describe your site
-     <p>Phree's personal blog about <code>AI</code>, <code>Deep Learning</code>, <code>Computer Vision</code> and Life.</p>
+     <p>Knowledge has no boundaries and we are extending it.</p>
   header_text_feature_image: 
   footer_text: >
    <p>Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/sylhare/Type-on-Strap">Type on Strap</a></p>

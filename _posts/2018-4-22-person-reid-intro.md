@@ -16,16 +16,17 @@ tags: [Person Re-Identification, 论文笔记]
     </div>
 </div>
 
-行人重识别一般包括行人检测 (person detection), 行人跟踪 (person tracking) 和行人查询 (person retrieval) 几个流程. 但是鉴于前两者已经作为单独的课题被研究地较为成熟了, 我们主要讨论的其实是第三个部分.
+行人重识别一般包括行人检测 (person detection), 行人跟踪 (person tracking) 和行人查询 (Person retrieval) 几个流程. 但是鉴于前两者已经作为单独的课题被研究地较为成熟了, 我们主要讨论的其实是第三个部分.
 
 ## 目标
 由于监控摄像头的覆盖范围有限, 同时考虑到经济成本, 总有摄像头盲区, 因此当一个人从一个摄像头转移到另一个摄像头时能对人进行识别和跟踪是非常重要的. 这个问题就是所谓的行人重识别. 可以更加正式地表示为, 给定一个 gallery set \\(G\\) 包含 \\(N\\) 张不同的图片 \\( \\{ g_i \\}_{i=1}^N \\), 每张图片对应 \\( N \\) 个 identity 中的一个. 我们希望针对一个给定的 probe (query) image \\( q \\) 能通过下式来确定其属于哪一个 identity:
 
 $$
-i*=\arg \max_{i \in 1,2,\ldots,N} \text{sim}(q,g_i)
+i*=\arg \max_{i \in 1,2,\ldots,N} \mathrm{sim}(q,g_i)
 $$
 
-其中 \\( text{sim}() \\) 表示某种图片之间相似度的度量函数. 实际上这是一个简化的 Person Re-ID 问题, 属于 close-world 的, 近似于分类问题. 实际上我们可能会有更多的要求, 例如过滤掉 gallery set 中的无关对象 (imposters), 或是判断某张图像是否属于特定的 group 等.
+其中 \\( \mathrm{sim}(q,g_i) \\) 表示图片 \\( q \\) 和 \\( g_i \\) 之间的相似度. 
+实际上这是一个简化的 Person Re-ID 问题, 属于 close-world 的, 近似于分类问题. 实际上我们可能会有更多的要求, 例如过滤掉 gallery set 中的无关对象 (imposters), 或是判断某张图像是否属于特定的 group 等.
 
 ## 挑战
 这一领域的挑战在于数据之间的差异性非常巨大, 即同类 (同一个人) 之间的差异相对比较大而类间 (不同人间) 差异不太大, 具有区分性的特征不够明显.
