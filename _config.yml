@@ -4,15 +4,15 @@ baseurl: ""
 # THEME-SPECIFIC CONFIGURATION
 theme_settings:
   # Meta
-  title: PhreeLearning
+  title: Phreer
   avatar:
   favicon: assets/favicon.ico
   gravatar: 5ac849d1d7af7fed
-  description: "PhreeLearning, about AI, Deep Learning and Life" # used by search engines
+  description: "Phreer, a personal blog about computer, programming, AI and life" # used by search engines
 
   # Header and footer text
   header_text: > #two or three lines to describe your site
-     <p>Knowledge has no boundaries and we are extending it.</p>
+     <p>致栖息于计算机的伟大灵魂和智慧.</p>
   header_text_feature_image: 
   footer_text: >
    <p>Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/sylhare/Type-on-Strap">Type on Strap</a></p>
