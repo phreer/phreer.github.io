@@ -4,11 +4,11 @@ baseurl: ""
 # THEME-SPECIFIC CONFIGURATION
 theme_settings:
   # Meta
-  title: Phreer
+  title: phreer
   avatar:
   favicon: assets/favicon.ico
   gravatar: 5ac849d1d7af7fed
-  description: "Phreer, a personal blog about computer, programming, AI and life" # used by search engines
+  description: "Personal blog about programming and life" # used by search engines
 
   # Header and footer text
   header_text: > #two or three lines to describe your site
@@ -19,7 +19,7 @@ theme_settings:
   
   # Icons
   rss: true
-  email_address: "iphreeliu@gmail.com" # Full email address, e.g. "sam@example.com"
+  email_address: "weifeng.liu.z@gmail.com" # Full email address, e.g. "sam@example.com"
   behance:
   bitbucket:
   dribbble:
@@ -55,14 +55,14 @@ theme_settings:
   # Localization strings
   str_about: "关于"
   str_follow_on: "关注"
-  str_rss_follow: "订阅RSS"
+  str_rss_follow: "订阅 RSS"
   str_email: "邮箱"
   str_next_post: "下一篇"
   str_previous_post: "上一篇"
   str_next_page: "下一页"
   str_previous_page: "上一页"
   str_continue_reading: "继续阅读"
-  str_javascript_required_disqus: "启用JavaScript以查看评论."
+  str_javascript_required_disqus: "启用 JavaScript 以查看评论."
 
   # Colours, typography and padding
   # Open the "_sass > base" folder, and open "_variables.scss"
