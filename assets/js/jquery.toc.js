@@ -30,6 +30,8 @@
     if (!headers.length || headers.length < settings.minimumHeaders || !output.length) {
       $(this).hide();
       $('.post-directory-title').css('display', 'none');
+      $('.colms-md-one-forth').css('display', 'none');
+      $('.colms-md-three-forth').css('width', '100%');
       return;
     }
 
