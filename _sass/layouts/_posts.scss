@@ -131,6 +131,7 @@ div.colms-md-three-forth {
     float: left;
     padding-right: 10px;
 }
+
 div.colms-md-one-forth {
     width: 20%;
     float: left;
@@ -141,6 +142,7 @@ article {
         margin-top: 5em;
     }
 }
+
 @media screen and (max-width: $break){
     div.colms-md-three-forth {
         width: 100%;
@@ -185,4 +187,13 @@ section.post-directory {
 
 .post-tag {
     padding-bottom: 1em;
+}
+
+
+.excerpt {
+    line-height: 1.5em;
+}
+
+.page-link {
+    font-size: 1.3em;
 }
