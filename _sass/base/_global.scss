@@ -178,13 +178,13 @@ img[align=right] {
 
 @media screen and (max-width: $sm-break) {
     h1 {
-        font-size: 1.6em;
-    }
-    h2 {
         font-size: 1.4em;
     }
+    h2 {
+        font-size: 1.3em;
+    }
     h3 {
-        font-size: 1.25em;
+        font-size: 1.2em;
     }
     h4 {
         font-size: 1.1em;
@@ -200,7 +200,7 @@ img[align=right] {
         box-shadow: 1pt 1pt 1pt rgba(0,0,0,.125);
     }
 }
-.fig{
+.fig {
     margin: 1em 0;
     padding: $padding-small;
     border-top: 1px solid $border-color;
