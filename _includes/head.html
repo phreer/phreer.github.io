@@ -1,13 +1,13 @@
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
     <!--Baidu tracker verification-->
     <meta name="baidu-site-verification" content="dOp9xdAi2j" />    
     <!-- JQuery (used for bootstrap and jekyll search) -->
     <script src="{{ site.baseurl }}/assets/js/jquery-3.2.1.min.js" ></script>
     
-    <!-- Main JS (navbar.js and katex_init.js)-->
-    <script defer=true src="{{ site.baseurl }}/assets/js/main.min.js"></script>
+    <script defer src="{{ '/assets/js/navbar.js' | relative_url }}"></script>
     
     <!-- CSS -->
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/main.css">
@@ -26,7 +26,7 @@
     <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/font-awesome.min.css">
 
     <!-- Google Fonts -->
-    {% if site.theme_settings.google_fonts %}
+    {% if site.theme_settings.google_fonts and site.theme_settings.google_fonts != empty %}
     <link href="//fonts.googleapis.com/css?family={{ site.theme_settings.google_fonts }}" rel="stylesheet" type="text/css"> 
     {% endif %}
 

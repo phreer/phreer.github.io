@@ -1,49 +1,21 @@
 .tag-list {
-    width: 100%;
-    font-size: 0.9em;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
     font-family: $font-family-ui;
-    div.meta {
-        margin-right: 0.5em;
-    }
+    font-size: 12px;
+    line-height: 1.7;
 
-    a.button {
-        margin: 0.1em;
-        padding: 0.2em 0.4em;
-    }
-
-    p {
-        margin: 0;
-        padding: 0 0.2em 0 0;
-    }
+    a { display: inline-block; padding-block: 4px; text-decoration: none; }
 }
 
+.tag-group { margin-top: 24px; }
 .tag-anchor {
-    margin-bottom: $padding-x-small;
-    a {
-        color: $link-color;
-
-        &:hover {
-            text-decoration: none;
-        }
-    }
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    margin: 0 0 6px;
+    font-size: 20px;
 }
-
-.tag-posts {
-    display: inline-block;
-    width: 100%;
-    .tag-title {
-        margin-top: 0;
-        margin-bottom: 0;
-        a {
-            margin-left: $padding-x-small;
-        }
-    }
-
-    .meta {
-        display: inline;
-        float: right;
-        font-size: 0.7em;
-        line-height: normal;
-        font-family: $font-family-main;
-    }
-}
+.tag-top { font-family: $font-family-ui; font-size: 14px; padding: 4px 8px; }

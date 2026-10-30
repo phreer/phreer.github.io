@@ -1,14 +1,14 @@
 // Typography
-$font-family-main: "Helvetica Neue", Helvetica, Tahoma, Verdana, Arial, "Georgia", "Hiragino Sans GB", "PingFang SC",  "Microsoft YaHei", "WenQuanYi Micro Hei", "Source Sans Pro", sans-serif;
-$font-family-headings: 'Source Sans Pro', Helvetica, Arial, sans-serif, "PingFang SC", "Microsoft YaHei";
-$font-weight-headings: 550;
+$font-family-main: "Noto Serif SC", "Songti SC", "Noto Serif CJK SC", Georgia, serif;
+$font-family-headings: $font-family-main;
+$font-weight-headings: 500;
 
-$font-family-ui: "Tw Cen MT", "Microsoft YaHei UI", 'Source Sans Pro', Helvetica, Arial, sans-serif, "Microsoft YaHei", "PingFang SC";
-$font-size: 16px;
+$font-family-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+$font-size: 17px;
 
 //Code
-$font-family-code: Menlo,Monaco,Consolas,"Courier New",monospace, "Microsoft YaHei", "Source Sans Pro";
-$background-color-code: #f6f6f6; 
+$font-family-code: "SFMono-Regular", Menlo, Consolas, "Liberation Mono", "Noto Sans Mono CJK SC", monospace;
+$background-color-code: #edf2ef;
 
 // Padding
 $padding-large: 15%;
@@ -16,13 +16,13 @@ $padding-small: 3%;
 $padding-x-small: 1%;
 
 // Brand colours
-$brand-color: #fff;
-$background-color: #fff;
+$brand-color: #f8f7f3;
+$background-color: #f8f7f3;
 $border-color: rgba(0, 0, 0, 0.1); // rgba recommended if using feature images
 
 // Typography colours
-$text-color: #383838;
-$link-color: #507492; // #1ABC9C;
+$text-color: #383a35;
+$link-color: #3c7375;
 $selection-color: #D4D4D4; // visible when highlighting text
 $blockquote-color: #EEF7FA; // $background-color;
 
@@ -32,13 +32,13 @@ $text-shadow: #999;
 $search-color: #999;
 
 // Header colours
-$header-link-color: #383838;
+$header-link-color: $text-color;
 
 // Feature image for articles
 $feature-image-text-color: #fff;
 $feature-image-size: cover; // options include "cover", "contain", "auto"
 // Header description box
-$header-desc-background-color: #507492;
+$header-desc-background-color: $background-color;
 $header-desc-text-color: #FFF;
 
 // Mobile display

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ site.lang | default: 'zh-CN' | escape }}">
   {% include head.html %}
-  <body>
+  <body class="layout-{{ page.layout | slugify }}">
+    <a class="skip-link" href="#content">{{ site.theme_settings.str_skip_content }}</a>
     {% include navbar.html %}
-    <div class="content">
+    <main id="content" class="content" tabindex="-1">
       {{ content }}
-    </div>
+    </main>
     {% include footer.html %}
   </body>
 </html>

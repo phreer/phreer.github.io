@@ -1,8 +1,7 @@
-<div id="post-directory-module" class="mobile-hidden">
-    <section class="post-directory">
-
-    <dl></dl>
-    </section>
-</div>
-
-<script src="{{ site.baseurl }}/assets/js/jquery.toc.js"></script>
+<aside id="post-directory-module" class="post-directory-module" aria-label="{{ site.theme_settings.str_toc }}" hidden>
+  <details id="post-directory-details" class="post-directory" open>
+    <summary>{{ site.theme_settings.str_toc }}</summary>
+    <nav id="post-directory-links" aria-label="{{ site.theme_settings.str_toc }}"></nav>
+  </details>
+</aside>
+<script defer src="{{ '/assets/js/jquery.toc.js' | relative_url }}"></script>

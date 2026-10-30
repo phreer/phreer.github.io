@@ -1,5 +1,6 @@
 # SITE CONFIGURATION
 baseurl: ""
+lang: zh-CN
 
 # THEME-SPECIFIC CONFIGURATION
 theme_settings:
@@ -54,6 +55,21 @@ theme_settings:
   
   # Localization strings
   str_about: "关于"
+  str_home: "首页"
+  str_menu: "菜单"
+  str_search: "搜索"
+  str_tags: "标签"
+  str_recent_posts: "最近的文字"
+  str_all_posts: "浏览全部归档"
+  str_toc: "本文目录"
+  str_skip_content: "跳转到正文"
+  str_color_mode: "颜色模式"
+  str_color_system: "跟随系统"
+  str_color_light: "浅色"
+  str_color_dark: "深色"
+  str_color_storage_error: "无法保存外观偏好，当前选择仅在本页生效。"
+  str_search_placeholder: "输入关键词…"
+  str_search_empty: "没有找到匹配的内容。"
   str_follow_on: "关注"
   str_rss_follow: "订阅 RSS"
   str_email: "邮箱"
@@ -66,7 +82,7 @@ theme_settings:
 
   # Colours, typography and padding
   # Open the "_sass > base" folder, and open "_variables.scss"
-  google_fonts: "Source+Sans+Pro:400,700,700italic,400italic"
+  google_fonts: ""
 
   # Post navigation
   post_navigation: true

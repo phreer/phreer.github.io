@@ -1,192 +1,69 @@
-// https://github.com/ghiculescu/jekyll-table-of-contents
-// Updated by http://mazhuang.org
-(function($){
-  $.fn.toc = function(options) {
-    var defaults = {
-      noBackToTopLinks: false,
-      title: '文章目录',
-      minimumHeaders: 2,
-      headers: 'h2, h3',
-      listType: 'ul', // values: [ol|ul]
-      showEffect: 'show', // values: [show|slideDown|fadeIn|none]
-      showSpeed: 0 // set to 0 to deactivate effect
-    },
-    settings = $.extend(defaults, options);
+(function () {
+    'use strict';
 
-    function fixedEncodeURIComponent (str) {
-      return encodeURIComponent(str).replace(/[!'()*]/g, function(c) {
-        return '%' + c.charCodeAt(0).toString(16);
-      });
+    var module = document.getElementById('post-directory-module');
+    var details = document.getElementById('post-directory-details');
+    var linksContainer = document.getElementById('post-directory-links');
+    var content = document.querySelector('.post-article .post-content');
+    var layout = document.querySelector('.post-layout');
+    if (!module || !details || !linksContainer || !content || !layout) {
+        console.error('Article directory markup is incomplete.');
+        return;
     }
 
-    var headers = $(settings.headers).filter(function() {
-      // get all headers with an ID
-      var previousSiblingName = $(this).prev().attr( "name" );
-      if (!this.id && previousSiblingName) {
-        this.id = $(this).attr( "id", previousSiblingName.replace(/\./g, "-") );
-      }
-      return this.id;
-    }), output = $(this);
-    if (!headers.length || headers.length < settings.minimumHeaders || !output.length) {
-      $(this).hide();
-      $('.post-directory-title').css('display', 'none');
-      $('.colms-md-one-forth').css('display', 'none');
-      $('.colms-md-three-forth').css('width', '100%');
-      return;
-    }
-
-    if (0 === settings.showSpeed) {
-      settings.showEffect = 'none';
-    }
-
-    var render = {
-      show: function() { output.hide().html(html).show(settings.showSpeed); },
-      slideDown: function() { output.hide().html(html).slideDown(settings.showSpeed); },
-      fadeIn: function() { output.hide().html(html).fadeIn(settings.showSpeed); },
-      none: function() { output.html(html); }
-    };
-
-    var get_level = function(ele) { return parseInt(ele.nodeName.replace("H", ""), 10); }
-    var highest_level = headers.map(function(_, ele) { return get_level(ele); }).get().sort()[0];
-    var return_to_top = '<i class="icon-arrow-up back-to-top"> </i>';
-
-    var level = get_level(headers[0]),
-    this_level,
-    html = "<p><strong class=\"toc-title\">" + settings.title + "</strong></p>\n";
-    html += " <"+settings.listType+" class=\"toc\">";
-    headers.on('click', function() {
-      if (!settings.noBackToTopLinks) {
-        window.location.hash = this.id;
-      }
-    })
-    .addClass('clickable-header')
-    .each(function(_, header) {
-      this_level = get_level(header);
-      if (!settings.noBackToTopLinks && this_level === highest_level) {
-        $(header).addClass('top-level-header').after(return_to_top);
-      }
-      if (this_level === level) {// same level as before; same indenting
-        html += "<li class=\"toc-item toc-level-" + this_level + "\">";
-        html += "<a class=\"jumper\" href='#" + fixedEncodeURIComponent(header.id) + "'>";
-        html += "<span class='toc-text'>" + header.innerHTML + "</span>";
-        html += "</a>";
-
-      } else if (this_level <= level){ // higher level than before; end parent ol
-        for(i = this_level; i < level; i++) {
-          html += "</li></"+settings.listType+">"
+    var headings = Array.from(content.querySelectorAll('h2, h3')).filter(function (heading) {
+        if (!heading.id && heading.previousElementSibling) {
+            var name = heading.previousElementSibling.getAttribute('name');
+            if (name) heading.id = name.replace(/\./g, '-');
         }
-        html += "<li class='toc-item toc-level-" + this_level + "'><a class=\"jumper\" href='#" + fixedEncodeURIComponent(header.id) + "'>";
-        html += "<span class='toc-text'>" + header.innerHTML + "</span>";
-        html += "</a>";
-      }
-      else if (this_level > level) { // lower level than before; expand the previous to contain a ol
-        for(i = this_level; i > level; i--) {
-          html += "<"+settings.listType+" class='toc-child'><li class='toc-item toc-level-" + i + "'>"
-        }
-        html += "<a class=\"jumper\" href='#" + fixedEncodeURIComponent(header.id) + "'>";
-        html += "<span class='toc-text'>" + header.innerHTML + "</span>";
-        html += "</a>";
-      }
-      level = this_level; // update for the next one
+        return Boolean(heading.id);
     });
-    html += "</"+settings.listType+">";
-    if (!settings.noBackToTopLinks) {
-      $(document).on('click', '.back-to-top', function() {
-        $(window).scrollTop(0);
-        window.location.hash = '';
-      });
+    if (headings.length < 2) return;
+
+    var list = document.createElement('ol');
+    var links = headings.map(function (heading) {
+        var item = document.createElement('li');
+        var link = document.createElement('a');
+        item.className = 'toc-level-' + heading.tagName.slice(1);
+        link.href = '#' + encodeURIComponent(heading.id);
+        link.textContent = heading.textContent;
+        item.appendChild(link);
+        list.appendChild(item);
+        return link;
+    });
+    linksContainer.appendChild(list);
+    module.hidden = false;
+    layout.classList.add('has-toc');
+
+    var mobile = window.matchMedia('(max-width: 768px)');
+    function updateLayout() {
+        details.open = !mobile.matches;
     }
+    updateLayout();
+    mobile.addEventListener('change', updateLayout);
 
-    render[settings.showEffect]();
-  };
-})(jQuery);
-
-$(document).ready(function(){
-  $('.post-directory').toc();
-  
-  var SPACING = 20;
-  var fixmeTop = $('#post-directory-module').offset().top - SPACING;
-  var fixmeButton = $('.comments').offset().top - $('#post-directory-module').height() - SPACING;
-  var tocSections = $('.clickable-header');
-  var tocSectionOffsets = [];
-
-  var calculateTocSections = function(){
-    tocSectionOffsets = [];
-    tocSections.each(function(index, section){
-      tocSectionOffsets.push(section.offsetTop);
-    })
-  }
-  calculateTocSections();
-  // Calculates the toc section offsets, which can change as images get loaded
-  $(window).bind('load', calculateTocSections);
-
-  var highlightTocSection = function(){
-    var highlightIndex = 0;
-    var sectionsCount = tocSectionOffsets.length;
-    var currentScroll = $(window).scrollTop();
-
-    if (currentScroll+60 > tocSectionOffsets[sectionsCount-1]) {
-      highlightIndex = sectionsCount;
-    } else {
-      for (var i=0; i<sectionsCount; i++) {
-        if (currentScroll+60 <= tocSectionOffsets[i]) {
-          highlightIndex = i;
-          break;
+    var scheduled = false;
+    function highlight() {
+        var current = 0;
+        headings.forEach(function (heading, index) {
+            if (heading.getBoundingClientRect().top <= 80) current = index;
+        });
+        links.forEach(function (link, index) {
+            if (index === current) link.setAttribute('aria-current', 'location');
+            else link.removeAttribute('aria-current');
+        });
+        scheduled = false;
+    }
+    function scheduleHighlight() {
+        if (!scheduled) {
+            scheduled = true;
+            window.requestAnimationFrame(highlight);
         }
-      }
     }
-    if (highlightIndex == 0) {
-      highlightIndex += 1;
-    }
-    $('.toc-item .jumper').removeClass('on');
-    $('.toc-item .jumper').eq(highlightIndex-1).addClass('on');
-  }
-  highlightTocSection();
-
-  var updateTocHeight = function() {
-      var height = document.documentElement.clientHeight;
-      height = height || 'auto';
-      $('.post-directory').css('max-height', height);
-  }
-
-  $(window).scroll(function() {
-    var currentScroll = $(window).scrollTop();
-    if (currentScroll >= fixmeTop && currentScroll <= fixmeButton) {
-      $('#post-directory-module').css({
-        top: '20px',
-        position: 'fixed',
-        width: 'inherit'
-      });
-      $('.post-directory').css('overflow', 'auto');
-    } else if( currentScroll < fixmeTop) {
-      $('#post-directory-module').css({
-        position: 'inherit',
-        width: 'inherit'
-      });
-      $('.post-directory').css('overflow', 'hidden');
-      $('.post-directory').scrollTop(0);
-    } else{
-      $('#post-directory-module').css({
-        top: fixmeButton,
-        position: 'absolute',
-        width: 'inherit'
-      });
-      $('post-directory').css('overflow', 'hidden');
-    }
-
-    highlightTocSection();
-  });
-
-  updateTocHeight();
-
-  $(window).on("resize", function() {
-      updateTocHeight();
-  });
-});
-
-$(".jumper").on("click", function( e ) {
-  e.preventDefault();
-  $("body, html").animate({
-    scrollTop: $( $(this).attr('href') ).offset().top
-  }, 600);
-});
+    window.addEventListener('scroll', scheduleHighlight, { passive: true });
+    window.addEventListener('resize', scheduleHighlight);
+    window.addEventListener('load', scheduleHighlight);
+    if (document.fonts) document.fonts.ready.then(scheduleHighlight);
+    if (window.ResizeObserver) new ResizeObserver(scheduleHighlight).observe(content);
+    highlight();
+})();

@@ -1,229 +1,200 @@
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
-figure {
-    margin: 0;
-}
-
-// For correct line number width in Github Gists
-.gist table tbody tr td {
-    box-sizing: content-box;
-}
+[hidden] { display: none !important; }
 
 html {
-    background: $background-color;
-}
-
-// Typography
-::selection {
-    background: $selection-color;
-}
-
-::-moz-selection {
-    background: $selection-color;
+    background: var(--paper);
+    scroll-padding-top: 24px;
 }
 
 body {
-    color: $text-color;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--paper);
+    color: var(--ink);
     font-family: $font-family-main;
     font-size: $font-size;
-    word-wrap: break-word;
+    line-height: 1.9;
+    overflow-wrap: break-word;
+    -webkit-font-smoothing: antialiased;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+::selection {
+    background: var(--selection);
+}
+
+h1, h2, h3, h4, h5, h6 {
     font-family: $font-family-headings;
     font-weight: $font-weight-headings;
-    line-height: 1.3;
-    margin: 1em 0 0.5em 0;
+    line-height: 1.5;
+    margin: 1.4em 0 0.6em;
+    color: var(--title);
+    scroll-margin-top: 24px;
+    overflow-wrap: anywhere;
+
     a {
-        color: $text-color;
+        color: inherit;
+        text-decoration: none;
     }
 }
 
-h1 {
-    font-size: 1.6em;
+h1 { font-size: clamp(27px, 3.5vw, 36px); }
+h2 { font-size: 25px; }
+h3 { font-size: 21px; }
+h4 { font-size: 19px; }
+h5 { font-size: 17px; }
+h6 { font-size: 16px; }
+
+p, ol, ul, dl {
+    margin: 0 0 1.1em;
 }
 
-h2 {
-    font-size: 1.5em;
+ol, ul {
+    padding-left: 1.5em;
+    list-style-position: outside;
 }
 
-h3 {
-    font-size: 1.35em;
-}
-
-h4 {
-    font-size: 1.2em;
-}
-h5 {
-    font-size: 1em;
-}
-h6 {
-    font-size: 0,875em;
-}
-blockquote {
-    border-left: 2px solid darken($blockquote-color, 20%);
-    margin: 1em 1em;
-    padding: 0.75em 1em;
-    background-color: $blockquote-color;
-    box-shadow: 0 2px 2px $border-color;
-}
-
-blockquote p:last-child,
-footer p:last-child {
+li > ol, li > ul {
     margin-bottom: 0;
 }
 
-table {
-    table-layout: fixed;
-    width: 100%;
-    word-wrap: break-word;
-    @media (max-width: 1100px) {
-        overflow-x: scroll;
-        display: inline-block;
+li p {
+    margin-bottom: 0.5em;
+}
+
+dt { font-weight: 600; }
+dd { margin-left: 1.5em; }
+
+a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-color: var(--accent-line);
+    text-underline-offset: 4px;
+
+    &:hover {
+        text-decoration-color: currentColor;
     }
 }
 
-td,
-th {
-    padding: 0.5em 1em;
-    border: 1px solid $border-color;
+a:focus-visible, button:focus-visible, select:focus-visible,
+input:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+}
+
+button, input, select {
+    font-family: $font-family-ui;
+}
+
+blockquote {
+    margin: 1.2em 0;
+    padding: 0.7em 1em;
+    border-left: 2px solid var(--accent);
+    background: var(--surface);
+    color: var(--secondary);
+
+    > :last-child { margin-bottom: 0; }
+}
+
+table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    margin: 1.2em 0;
+    font-size: 0.9em;
+}
+
+th, td {
+    padding: 0.5em 0.8em;
+    border: 1px solid var(--line);
     text-align: left;
 }
 
-table,
-dl,
-kbd,
-samp {
-    margin: 1em 0;
+th { background: var(--surface); font-weight: 600; }
+
+code, kbd, samp, pre {
+    font-family: $font-family-code;
+    font-size: 0.85em;
 }
 
-dt {
-    font-weight: bold;
+code, kbd {
+    padding: 0.15em 0.3em;
+    border-radius: 3px;
+    background: var(--surface);
+    overflow-wrap: anywhere;
 }
 
-dd {
-    margin-left: 2em;
-}
+pre {
+    max-width: 100%;
+    overflow-x: auto;
+    margin: 1.2em 0;
+    padding: 18px 20px;
+    line-height: 1.8;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--surface);
+    tab-size: 4;
 
-p,
-ol,
-ul,
-dl,
-.math-display {
-    line-height: 1.5;
-    margin-bottom: 1em;
-}
-
-// KaTeX math display
-.math-display {
-    display: inline-block;
-    width: 100%;
-}
-
-// Lists within lists
-li {
-    p {
-        display: inline;
+    code {
+        padding: 0;
+        font-size: inherit;
+        background: transparent;
+        overflow-wrap: normal;
+        white-space: pre;
     }
-    & > ul,
-    & > ol {
-        margin-bottom: 0;
-        margin-left: 1em;
-    }
-}
-
-ol,
-ul {
-    list-style-position: inside;
 }
 
 hr {
     border: 0;
-    border-top: 1px solid $border-color;
-    border-bottom: 1px solid #fff;
-    margin: 1em 0;
+    border-top: 1px solid var(--line);
+    margin: 1.5em 0;
 }
 
-a {
-    color: $link-color;
-    text-decoration: none;
+figure { margin: 1.2em 0; }
+iframe, img, embed, object, video { max-width: 100%; }
+img { height: auto; }
+img[align="left"] { margin-right: 3%; }
+img[align="right"] { margin-left: 3%; }
+
+.fig {
+    margin: 1.2em 0;
+    padding: 12px 0;
+    border-block: 1px solid var(--line);
+}
+.figcenter { text-align: center; }
+.figcaption, figcaption {
+    font-size: 0.85em;
+    line-height: 1.7;
+    color: var(--secondary);
+    padding-top: 8px;
 }
 
-iframe,
-img,
-embed,
-object,
-video {
+.math-display, .MathJax_Display, .katex-display {
     max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
-img[align=left] {
-    margin-right: 3%;
+.content {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 36px;
 }
 
-img[align=right] {
-    margin-left: 3%;
+@media (max-width: $break) {
+    body { font-size: 16px; }
+    .content { padding-inline: 24px; }
 }
 
-/* ---- Responsive ---- */
-
-@media screen and (max-width: $sm-break) {
-    h1 {
-        font-size: 1.6em;
-    }
-    h2 {
-        font-size: 1.4em;
-    }
-    h3 {
-        font-size: 1.25em;
-    }
-    h4 {
-        font-size: 1.1em;
-    }
-    h5 {
-        font-size: 1em;
-    }
-    h6 {
-        font-size: 0.95em;
-    }
-    header.site-header {
-        z-index: 1000;
-        box-shadow: 1pt 1pt 1pt rgba(0,0,0,.125);
-    }
-}
-.fig{
-    margin: 1em 0;
-    padding: $padding-small;
-    border-top: 1px solid $border-color;
-    border-bottom: 1px solid $border-color;
-}
-.figcenter {
-    text-align: center;
-}
-.figcaption {
-    text-align: left;
-    font-size: 0.925em;
-    padding-top: $padding-x-small;
-}
-
-div.content {
-    width: auto;
-    padding: 0% $padding-x-small;
-}
-
-@media screen and (min-width: $break) {
-    div.content {
-        padding: 0%;
-        width: $break;
-        margin: auto;
-    }
+@media (max-width: $sm-break) {
+    .content { padding-inline: 20px; }
 }

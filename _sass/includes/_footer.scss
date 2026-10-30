@@ -1,17 +1,38 @@
 .site-footer {
-    @extend %padding-small;
-    display: inline-block;
-    text-align: center;
     width: 100%;
-    color: lighten($text-color, 30%);
-    font-size: 0.9em;
+    max-width: 920px;
+    margin: 28px auto 0;
+    padding: 0 36px;
+    color: var(--muted);
     font-family: $font-family-ui;
-    .footer-icons {
-        ul {
-            list-style: none;
-            li {
-                display: inline;
-            }
-        }
-    }
+    font-size: 11px;
+}
+
+.footer-inner {
+    border-top: 1px solid var(--line);
+    padding: 20px 0 26px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    p, ul { margin: 0; }
+    a { color: inherit; }
+}
+
+.footer-icons ul {
+    display: flex;
+    gap: 12px;
+    padding: 0;
+    list-style: none;
+
+    a { display: inline-block; padding: 5px; }
+}
+
+@media (max-width: $break) {
+    .site-footer { padding-inline: 24px; }
+}
+@media (max-width: $sm-break) {
+    .site-footer { padding-inline: 20px; }
 }

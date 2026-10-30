@@ -1,59 +1,40 @@
 ---
 layout: default
 ---
-
 <div class="home">
+  <h1 class="sr-only">{{ site.theme_settings.title }}</h1>
   {% if site.theme_settings.header_text %}
-  <div id="main" class="call-out"
-  style="background-image: url('{{ site.baseurl }}/{{ site.theme_settings.header_text_feature_image }}')">
+  <div class="call-out{% if site.theme_settings.header_text_feature_image %} has-feature{% endif %}"{% if site.theme_settings.header_text_feature_image %} style="background-image: url('{{ site.theme_settings.header_text_feature_image | relative_url }}')"{% endif %}>
     {{ site.theme_settings.header_text }}
   </div>
   {% endif %}
-
+  <div class="home-section-heading">{{ site.theme_settings.str_recent_posts }}</div>
   <div class="posts">
     {% for post in paginator.posts %}
-    <div class="post-teaser">
-      {% if post.thumbnail %} 
-      <div class="post-img">
-         <img src="{{ site.baseurl }}/{{ post.thumbnail }}">
-      </div>
+    <article class="post-teaser">
+      {% if post.thumbnail %}
+      <div class="post-img"><img src="{{ post.thumbnail | relative_url }}" alt="" loading="lazy"></div>
       {% endif %}
-      <span>
-          <header>
-            <h1 class="post-link">
-              <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">
-                {{ post.title }}
-              </a>
-            </h1>
-            <p class="meta">
-              {{ post.date | date: "%B %-d, %Y" }}
-            </p>
-          </header>
-          <div class="excerpt">
-            {{ post.content | strip_html | truncate: "250" }}
-            <!--<a class="button" href="{{ post.url | prepend: site.baseurl }}">
-              {{ site.theme_settings.str_continue_reading }}
-            </a>-->
-          </div>
-      </span>
-    </div>
+      <header>
+        <p class="meta">
+          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
+          {% if post.tags.size > 0 %}<span class="teaser-tags">{{ post.tags | join: ' · ' | escape }}</span>{% endif %}
+        </p>
+        <h2 class="post-link"><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h2>
+      </header>
+      <div class="excerpt">{{ post.content | strip_html | normalize_whitespace | truncate: 250 | escape }}</div>
+    </article>
     {% endfor %}
   </div>
-
   {% if paginator.total_pages > 1 %}
-  <div class="pagination">
+  <nav class="pagination" aria-label="{{ site.theme_settings.str_all_posts }}">
     {% if paginator.previous_page %}
-    <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}" class="button" >
-      <i class="fa fa-chevron-left"></i>
-      {{ site.theme_settings.str_previous_page }}
-    </a>
+    <a href="{{ paginator.previous_page_path | relative_url }}" class="button">{{ site.theme_settings.str_previous_page }}</a>
     {% endif %}
     {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}" class="button" >
-      {{ site.theme_settings.str_next_page }}
-      <i class="fa fa-chevron-right"></i>
-    </a>
+    <a href="{{ paginator.next_page_path | relative_url }}" class="button">{{ site.theme_settings.str_next_page }}</a>
     {% endif %}
-  </div>
+  </nav>
   {% endif %}
+  <a class="archive-link" href="{{ '/archives/' | relative_url }}">{{ site.theme_settings.str_all_posts }} <span aria-hidden="true">↗</span></a>
 </div>

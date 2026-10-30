@@ -1,116 +1,100 @@
-// Header text feature
 .call-out {
-    @extend %padding-regular;
-    display: inline-block;
-    width: 100%;
-    height: 100%;
-    background-color: $header-desc-background-color;
-    font-size: 1.2em;
+    padding: 20px 0;
+    color: var(--ink);
+
+    p {
+        margin: 0;
+        font-size: clamp(24px, 3.2vw, 29px);
+        font-weight: 400;
+        line-height: 1.55;
+        letter-spacing: 0.03em;
+    }
+
+    &.has-feature {
+        margin-block: 20px;
+        padding: 36px 24px;
+        background-size: cover;
+        background-position: center;
+        color: #fff;
+        text-shadow: 0 1px 3px #222;
+    }
+}
+
+.home-section-heading {
+    margin-top: 8px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--accent-line);
+    color: var(--accent);
     font-family: $font-family-ui;
-    text-align: center;
-    color: $header-desc-text-color;
-    background-repeat: no-repeat;
-    background-size: $feature-image-size;
-
-    /* --- Responsive --- */
-    @media screen and (max-width: 760px) {
-        background-size: 100% auto;
-    } 
-    
-    //For white images
-    p,
-    a,
-    li,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5 {
-        @extend .header-txt-shadow;
-    }
-
-    p:last-child {
-        margin-bottom: 0;
-    }
+    font-size: 12px;
 }
 
-#main {
-    background-position: 100% 0px, 0% center, center top;
+.home > .posts {
+    max-width: 700px;
 }
 
-// Post listing
-.posts {
-    .post-teaser {
-        padding-top: $padding-x-small * 2;
-        padding-bottom: 1em;
-        width: 100%;
-        margin-bottom: 0;
-        display: inline-block;
-        background-size: $feature-image-size;
-        border-bottom: 1px solid $border-color;
-        .post-link {
-            font-size: 1.2em;
-        }
-        p a {
-            @extend .body-link;
-        }
+.post-teaser {
+    padding-block: 12px;
+    border-bottom: 1px solid var(--line);
+
+    .meta {
+        font-size: 11px;
+        line-height: 1.5;
+    }
+
+    .post-link {
+        margin: 6px 0 7px;
+        font-size: 21px;
+        font-weight: 500;
+        line-height: 1.5;
+        letter-spacing: 0.015em;
+    }
+
+    .post-img {
+        margin-bottom: 12px;
         img {
-            padding: 0;
-            vertical-align: middle;
-        }
-
-        .post-img {
-            vertical-align: middle;
-            border-radius: 25px;
-            overflow: hidden;
-
-            @media (min-width: $break) {
-                height: 250px;
-            } //Smaller screen
-            @media screen and (max-width: $break) {
-                height: 150px;
-            }
-        }
-
-        .post-img img {
-            //max-width: 100%;
-            -moz-transform: scale(1);
-            -webkit-transform: scale(1);
-            transform: scale(1);
-
-            -moz-transition-timing-function: ease-out;
-            -webkit-transition-timing-function: ease-out;
-            transition-timing-function: ease-out;
-
-            -moz-transition: all 5s;
-            -webkit-transition: all 5s;
-            transition: all 5s;
-
-            &:hover {
-                -moz-transform: scale(1.3);
-                -webkit-transform: scale(1.3);
-                transform: scale(1.3);
-            }
+            display: block;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 3px;
         }
     }
+
     .excerpt {
-        margin-top: 1em;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        max-height: 3.5em;
+        overflow: hidden;
+        color: var(--secondary);
+        font-size: 15px;
+        line-height: 1.75;
     }
 }
 
-// Pagination
+.teaser-tags {
+    margin-left: 12px;
+    &::before {
+        content: "/";
+        margin-right: 12px;
+        color: var(--muted);
+    }
+}
+
 .pagination {
-    padding: $padding-small $padding-large 0 $padding-large;
-    text-align: center;
-    @media (max-width: 600px) {
-        padding: $padding-small;
-    }
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    max-width: 700px;
+    margin-top: 20px;
+    font-size: 13px;
+}
 
-    .button {
-        margin: 0 1.5em;
-        i {
-            vertical-align: middle;
-        }
-    }
-
+.archive-link {
+    display: inline-block;
+    padding-block: 22px 8px;
+    font-family: $font-family-ui;
+    font-size: 13px;
+    text-decoration: none;
 }

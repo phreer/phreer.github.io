@@ -1,16 +1,10 @@
-h1.title {
-    @extend .header-txt-shadow;
-}
+.page-article > .post-content { max-width: 700px; }
+.page-article > .post-tag { border: 0; padding: 0; }
 
 .subtitle {
-    font-weight: normal;
-    margin-top: 5px;
-    text-shadow: 1px 1px 2px $text-shadow;
-}
-
-.comments {
-    padding-top: 1em;
-    padding-bottom: 1em;
+    margin: 0;
+    color: var(--secondary);
     font-family: $font-family-ui;
+    font-size: 14px;
+    font-weight: 400;
 }
-//Shared css in _post.scss

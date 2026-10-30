@@ -1,31 +1,43 @@
-/*
- * Display the menu items on smaller screens
- */
-$(function () {
-    var pull = $('#pull');
-    menu = $('nav ul');
-    menuHeight = menu.height();
+(function () {
+    'use strict';
 
-    $(pull).on('click', function (e) {
-        menu.slideToggle();
-    });
-});
-
-/*
- * Display the navbar back to normal after resize
- */
-$(window).resize(function () {
-    var w = $(window).width();
-    if (w > 320 && menu.is(':hidden')) {
-        menu.removeAttr('style');
+    var nav = document.getElementById('site-navigation');
+    var toggle = document.getElementById('pull');
+    var menu = document.getElementById('site-menu');
+    if (!nav || !toggle || !menu) {
+        console.error('Site navigation markup is incomplete.');
+        return;
     }
-});
 
+    var mobile = window.matchMedia('(max-width: 768px)');
+    var open = false;
 
-/*
- * Make the header images move on scroll
- */
-$(window).scroll(function () {
-    var x = $(this).scrollTop();   
-    $('#main').css('background-position', '100% ' + parseInt(-x/3) + 'px' + ', 0%, center top');
-});
+    function updateMenu() {
+        menu.hidden = mobile.matches && !open;
+        toggle.setAttribute('aria-expanded', String(!menu.hidden));
+    }
+
+    nav.classList.add('menu-ready');
+    updateMenu();
+    toggle.addEventListener('click', function () {
+        open = !open;
+        updateMenu();
+    });
+    mobile.addEventListener('change', function () {
+        open = false;
+        updateMenu();
+    });
+    nav.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && mobile.matches && open) {
+            open = false;
+            updateMenu();
+            toggle.focus();
+        }
+    });
+    menu.addEventListener('click', function (event) {
+        if (event.target.closest('a') && mobile.matches) {
+            open = false;
+            updateMenu();
+        }
+    });
+})();
