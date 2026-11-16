@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ page.lang | default: site.lang | default: 'zh-CN' }}">
   {% include head.html %}
   <body>
+    <a class="skip-link" href="#content">{{ site.theme_settings.str_skip_to_content | default: "跳到正文" }}</a>
     {% include navbar.html %}
-    <div class="content">
+    <main id="content" class="content">
       {{ content }}
-    </div>
+    </main>
     {% include footer.html %}
   </body>
 </html>

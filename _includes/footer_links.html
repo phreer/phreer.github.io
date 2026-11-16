@@ -1,0 +1,25 @@
+{% comment %} Footer links, one per account enabled in _config.yml. {% endcomment %}
+{% assign s = site.theme_settings %}
+{% if s.rss %}<li><a href="{{ '/feed.xml' | relative_url }}" title="{{ s.str_rss_follow }}">RSS</a></li>{% endif %}
+{% if s.email_address %}<li><a href="mailto:{{ s.email_address }}">{{ s.str_email | default: "Email" }}</a></li>{% endif %}
+{% if s.behance %}<li><a href="https://www.behance.net/{{ s.behance }}" title="{{ s.str_follow_on }} Behance">Behance</a></li>{% endif %}
+{% if s.bitbucket %}<li><a href="https://bitbucket.org/{{ s.bitbucket }}" title="{{ s.str_follow_on }} Bitbucket">Bitbucket</a></li>{% endif %}
+{% if s.dribbble %}<li><a href="https://dribbble.com/{{ s.dribbble }}" title="{{ s.str_follow_on }} Dribbble">Dribbble</a></li>{% endif %}
+{% if s.facebook %}<li><a href="https://www.facebook.com/{{ s.facebook }}" title="{{ s.str_follow_on }} Facebook">Facebook</a></li>{% endif %}
+{% if s.flickr %}<li><a href="https://www.flickr.com/photos/{{ s.flickr }}" title="{{ s.str_follow_on }} Flickr">Flickr</a></li>{% endif %}
+{% if s.github %}<li><a href="https://github.com/{{ s.github }}" title="{{ s.str_follow_on }} GitHub">GitHub</a></li>{% endif %}
+{% if s.gitlab %}<li><a href="https://gitlab.com/{{ s.gitlab }}" title="{{ s.str_follow_on }} GitLab">GitLab</a></li>{% endif %}
+{% if s.google_plus %}<li><a href="https://plus.google.com/{{ s.google_plus }}" title="{{ s.str_follow_on }} Google+">Google+</a></li>{% endif %}
+{% if s.instagram %}<li><a href="http://instagram.com/{{ s.instagram }}" title="{{ s.str_follow_on }} Instagram">Instagram</a></li>{% endif %}
+{% if s.keybase %}<li><a href="https://keybase.io/{{ s.keybase }}" title="{{ s.str_follow_on }} Keybase">Keybase</a></li>{% endif %}
+{% if s.linkedin %}<li><a href="{{ s.linkedin }}" title="{{ s.str_follow_on }} LinkedIn">LinkedIn</a></li>{% endif %}
+{% if s.pinterest %}<li><a href="http://www.pinterest.com/{{ s.pinterest }}" title="{{ s.str_follow_on }} Pinterest">Pinterest</a></li>{% endif %}
+{% if s.reddit %}<li><a href="https://www.reddit.com/user/{{ s.reddit }}" title="{{ s.str_follow_on }} Reddit">Reddit</a></li>{% endif %}
+{% if s.soundcloud %}<li><a href="https://soundcloud.com/{{ s.soundcloud }}" title="{{ s.str_follow_on }} SoundCloud">SoundCloud</a></li>{% endif %}
+{% if s.stack_exchange %}<li><a href="{{ s.stack_exchange }}" title="{{ s.str_follow_on }} Stack Exchange">Stack Exchange</a></li>{% endif %}
+{% if s.steam %}<li><a href="http://steamcommunity.com/id/{{ s.steam }}" title="{{ s.str_follow_on }} Steam">Steam</a></li>{% endif %}
+{% if s.tumblr %}<li><a href="http://{{ s.tumblr }}.tumblr.com/" title="{{ s.str_follow_on }} Tumblr">Tumblr</a></li>{% endif %}
+{% if s.twitter %}<li><a href="https://twitter.com/{{ s.twitter }}" title="{{ s.str_follow_on }} Twitter">Twitter</a></li>{% endif %}
+{% if s.vimeo %}<li><a href="https://vimeo.com/{{ s.vimeo }}" title="{{ s.str_follow_on }} Vimeo">Vimeo</a></li>{% endif %}
+{% if s.wordpress %}<li><a href="https://{{ s.wordpress }}.wordpress.com/" title="{{ s.str_follow_on }} WordPress">WordPress</a></li>{% endif %}
+{% if s.youtube %}<li><a href="https://www.youtube.com/user/{{ s.youtube }}" title="{{ s.str_follow_on }} YouTube">YouTube</a></li>{% endif %}

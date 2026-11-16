@@ -1,11 +1,29 @@
-* {
-    margin: 0;
-    padding: 0;
+:root {
+    color-scheme: light dark;
+    --gutter: clamp(1.25rem, 5vw, 2rem);
+
+    @each $name, $value in $colors-light {
+        --#{$name}: #{$value};
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        @each $name, $value in $colors-dark {
+            --#{$name}: #{$value};
+        }
+    }
+}
+
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
-figure {
+* {
     margin: 0;
+    padding: 0;
 }
 
 // For correct line number width in Github Gists
@@ -14,23 +32,39 @@ figure {
 }
 
 html {
-    background: $background-color;
+    background: var(--bg);
+    scroll-padding-top: 1.5rem;
 }
 
-// Typography
-::selection {
-    background: $selection-color;
-}
-
-::-moz-selection {
-    background: $selection-color;
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
 }
 
 body {
-    color: $text-color;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: var(--ink);
     font-family: $font-family-main;
     font-size: $font-size;
-    word-wrap: break-word;
+    line-height: $line-height;
+    overflow-wrap: break-word;
+    // Spacing between Han and Latin/digits, and trimming of full-width
+    // punctuation at line starts. Ignored by browsers without support.
+    text-autospace: normal;
+    text-spacing-trim: trim-start;
+}
+
+::selection {
+    background: var(--selection);
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 2px;
 }
 
 h1,
@@ -39,123 +73,35 @@ h3,
 h4,
 h5,
 h6 {
+    margin: 0;
+    color: var(--ink-strong);
     font-family: $font-family-headings;
-    font-weight: $font-weight-headings;
-    line-height: 1.3;
-    margin: 1em 0 0.5em 0;
-    a {
-        color: $text-color;
-    }
-}
-
-h1 {
-    font-size: 1.6em;
-}
-
-h2 {
-    font-size: 1.5em;
-}
-
-h3 {
-    font-size: 1.35em;
-}
-
-h4 {
-    font-size: 1.2em;
-}
-h5 {
     font-size: 1em;
-}
-h6 {
-    font-size: 0,875em;
-}
-blockquote {
-    border-left: 2px solid darken($blockquote-color, 20%);
-    margin: 1em 1em;
-    padding: 0.75em 1em;
-    background-color: $blockquote-color;
-    box-shadow: 0 2px 2px $border-color;
-}
+    font-weight: $font-weight-headings;
+    line-height: $line-height-headings;
+    // Titles break at spaces and punctuation rather than inside a Chinese
+    // word; a run too long for the line may still break anywhere.
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    text-wrap: balance;
 
-blockquote p:last-child,
-footer p:last-child {
-    margin-bottom: 0;
-}
-
-table {
-    table-layout: fixed;
-    width: 100%;
-    word-wrap: break-word;
-    @media (max-width: 1100px) {
-        overflow-x: scroll;
-        display: inline-block;
+    a {
+        color: inherit;
     }
-}
-
-td,
-th {
-    padding: 0.5em 1em;
-    border: 1px solid $border-color;
-    text-align: left;
-}
-
-table,
-dl,
-kbd,
-samp {
-    margin: 1em 0;
-}
-
-dt {
-    font-weight: bold;
-}
-
-dd {
-    margin-left: 2em;
-}
-
-p,
-ol,
-ul,
-dl,
-.math-display {
-    line-height: 1.5;
-    margin-bottom: 1em;
-}
-
-// KaTeX math display
-.math-display {
-    display: inline-block;
-    width: 100%;
-}
-
-// Lists within lists
-li {
-    p {
-        display: inline;
-    }
-    & > ul,
-    & > ol {
-        margin-bottom: 0;
-        margin-left: 1em;
-    }
-}
-
-ol,
-ul {
-    list-style-position: inside;
-}
-
-hr {
-    border: 0;
-    border-top: 1px solid $border-color;
-    border-bottom: 1px solid #fff;
-    margin: 1em 0;
 }
 
 a {
-    color: $link-color;
+    color: var(--accent);
     text-decoration: none;
+}
+
+b,
+strong {
+    font-weight: 600;
+}
+
+figure {
+    margin: 0;
 }
 
 iframe,
@@ -166,64 +112,331 @@ video {
     max-width: 100%;
 }
 
-img[align=left] {
+img {
+    height: auto;
+}
+
+img[align="left"] {
     margin-right: 3%;
 }
 
-img[align=right] {
+img[align="right"] {
     margin-left: 3%;
 }
 
-/* ---- Responsive ---- */
+code,
+kbd,
+samp,
+pre {
+    font-family: $font-family-code;
+    font-variant-ligatures: none;
+    text-autospace: no-autospace;
+}
 
-@media screen and (max-width: $sm-break) {
+code,
+kbd,
+samp {
+    font-size: 0.875em;
+}
+
+.content {
+    flex: 1;
+    width: 100%;
+    max-width: calc(#{$measure} + 2 * var(--gutter));
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+}
+
+/* ---- Long-form text ---- */
+
+.post-content {
+    > :first-child {
+        margin-top: 0;
+    }
+
+    > :last-child {
+        margin-bottom: 0;
+    }
+
+    p,
+    ul,
+    ol,
+    dl {
+        margin: 0 0 1.25em;
+    }
+
+    p,
+    li,
+    dd {
+        text-wrap: pretty;
+    }
+
+    // Justified like a printed page, except where justification would open
+    // up gaps: on narrow screens, and around inline formulas, which cannot
+    // break across lines.
+    @media (min-width: $stack-break) {
+        p,
+        li,
+        dd {
+            text-align: justify;
+
+            &:has(.MathJax, .MathJax_SVG, .MathJax_CHTML, mjx-container, .katex) {
+                text-align: start;
+            }
+        }
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        scroll-margin-top: 1.5rem;
+    }
+
     h1 {
-        font-size: 1.6em;
+        margin: 2.2em 0 0.8em;
+        font-size: 1.625rem;
     }
+
     h2 {
-        font-size: 1.4em;
+        margin: 2.4em 0 0.8em;
+        font-size: 1.4rem;
     }
+
     h3 {
-        font-size: 1.25em;
+        margin: 2em 0 0.65em;
+        font-size: 1.1875rem;
     }
-    h4 {
-        font-size: 1.1em;
-    }
-    h5 {
+
+    h4,
+    h5,
+    h6 {
+        margin: 1.7em 0 0.5em;
         font-size: 1em;
     }
+
     h6 {
-        font-size: 0.95em;
+        color: var(--muted);
     }
-    header.site-header {
-        z-index: 1000;
-        box-shadow: 1pt 1pt 1pt rgba(0,0,0,.125);
+
+    // A heading directly under another heading needs no second helping of space
+    h1 + h2,
+    h2 + h3,
+    h3 + h4 {
+        margin-top: 1em;
+    }
+
+    a {
+        text-decoration: underline;
+        text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.25em;
+
+        &:hover {
+            text-decoration-color: currentColor;
+        }
+    }
+
+    ul,
+    ol {
+        padding-left: 1.6em;
+    }
+
+    ul ul {
+        list-style-type: circle;
+    }
+
+    li {
+        margin: 0.3em 0;
+
+        &::marker {
+            color: var(--muted);
+        }
+
+        > ul,
+        > ol {
+            margin: 0.3em 0 0;
+        }
+
+        > p {
+            margin-bottom: 0.5em;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    dt {
+        color: var(--ink-strong);
+        font-weight: 600;
+    }
+
+    dd {
+        margin: 0 0 0.6em 1.6em;
+    }
+
+    blockquote {
+        margin: 1.6em 0;
+        padding: 0.1em 0 0.1em 1.2em;
+        border-left: 2px solid var(--faint);
+        color: var(--ink-soft);
+        font-family: $font-family-kai;
+
+        > :last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    hr {
+        width: 5rem;
+        height: 1px;
+        margin: 3em auto;
+        border: 0;
+        background: var(--faint);
+    }
+
+    img {
+        display: block;
+        margin: 1.8em auto;
+        border-radius: 4px;
+    }
+
+    // Three-line tables (三线表): rules above, below, and under the header only
+    table:not(.rouge-table) {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        margin: 1.8em auto;
+        overflow-x: auto;
+        border-top: 1.5px solid var(--ink-strong);
+        border-bottom: 1.5px solid var(--ink-strong);
+        font-size: 0.9375rem;
+        font-variant-numeric: tabular-nums;
+        line-height: 1.6;
+
+        th,
+        td {
+            padding: 0.5em 1em;
+            border: 0;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            border-bottom: 1px solid var(--ink-strong);
+            color: var(--ink-strong);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+    }
+
+    :not(pre) > code,
+    kbd,
+    samp {
+        padding: 0.12em 0.36em;
+        border-radius: 4px;
+        background: var(--surface);
+        -webkit-box-decoration-break: clone;
+        box-decoration-break: clone;
+    }
+
+    kbd {
+        border: 1px solid var(--rule);
+        border-bottom-width: 2px;
+    }
+
+    sup,
+    sub {
+        font-variant-numeric: tabular-nums;
+    }
+
+    .footnotes {
+        margin-top: 3em;
+        padding-top: 1.25em;
+        border-top: 1px solid var(--rule);
+        color: var(--ink-soft);
+        font-size: $font-size-small;
+        line-height: 1.7;
+    }
+
+    // Display math scrolls sideways instead of widening the page
+    .MathJax_Display,
+    .MathJax_SVG_Display,
+    .katex-display,
+    .math-display {
+        padding: 0.25em 0;
+        overflow-x: auto;
+        overflow-y: hidden;
     }
 }
-.fig{
-    margin: 1em 0;
-    padding: $padding-small;
-    border-top: 1px solid $border-color;
-    border-bottom: 1px solid $border-color;
+
+/* ---- Figures written as <div class="fig figcenter"> in posts ---- */
+
+.fig {
+    margin: 2em 0;
+
+    img {
+        margin: 0 auto;
+    }
 }
+
 .figcenter {
     text-align: center;
 }
+
+// Short captions sit centred under the figure; long ones fill the measure
+// and read as a paragraph.
 .figcaption {
-    text-align: left;
-    font-size: 0.925em;
-    padding-top: $padding-x-small;
+    display: inline-block;
+    max-width: 100%;
+    margin-top: 0.9em;
+    color: var(--muted);
+    font-size: $font-size-small;
+    line-height: 1.7;
+    text-align: start;
 }
 
-div.content {
-    width: auto;
-    padding: 0% $padding-x-small;
+@media (prefers-color-scheme: dark) {
+    // Diagrams drawn for a white page keep a white ground
+    .post-content img {
+        background: #fff;
+        filter: brightness(0.9);
+    }
 }
 
-@media screen and (min-width: $break) {
-    div.content {
-        padding: 0%;
-        width: $break;
-        margin: auto;
+@media (max-width: $stack-break) {
+    body {
+        font-size: 1rem;
+    }
+}
+
+@media print {
+    :root {
+        @each $name, $value in $colors-light {
+            --#{$name}: #{$value};
+        }
+    }
+
+    .site-nav,
+    .post-toc,
+    .post-nav,
+    .comments,
+    .pagination,
+    .skip-link {
+        display: none !important;
+    }
+
+    .post-content a {
+        text-decoration: none;
+    }
+
+    pre,
+    blockquote,
+    table,
+    img {
+        break-inside: avoid;
     }
 }

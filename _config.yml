@@ -1,5 +1,7 @@
 # SITE CONFIGURATION
+title: phreer # used for page titles (<title>), the feed and social previews
 baseurl: ""
+lang: zh-CN
 
 # THEME-SPECIFIC CONFIGURATION
 theme_settings:
@@ -12,7 +14,7 @@ theme_settings:
 
   # Header and footer text
   header_text: > #two or three lines to describe your site
-     <p>致栖息于计算机的伟大灵魂和智慧.</p>
+     <p>致栖息于计算机的伟大灵魂和智慧。</p>
   header_text_feature_image: 
   footer_text: >
    <p>Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/sylhare/Type-on-Strap">Type on Strap</a></p>
@@ -63,10 +65,17 @@ theme_settings:
   str_previous_page: "上一页"
   str_continue_reading: "继续阅读"
   str_javascript_required_disqus: "启用 JavaScript 以查看评论."
+  str_tags: "标签"
+  str_search: "搜索"
+  str_search_placeholder: "输入关键词…"
+  str_search_no_results: "没有找到相关文章"
+  str_toc: "目录"
+  str_page: "页面"
 
-  # Colours, typography and padding
+  # Colours, typography and layout
   # Open the "_sass > base" folder, and open "_variables.scss"
-  google_fonts: "Source+Sans+Pro:400,700,700italic,400italic"
+  # The theme uses system fonts; set this only to load an extra web font.
+  google_fonts:
 
   # Post navigation
   post_navigation: true

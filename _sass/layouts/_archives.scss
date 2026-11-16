@@ -1,14 +1,35 @@
-.archives {
-  h3 {
-    color:  $header-desc-background-color;
-  }
-  .meta {
-    float: right;
-    font-size: 0.7em;
-    font-family: $font-family-main;
-    @media screen and (max-width: $break){
-        display: none;
+// The year hangs in the margin beside its posts
+.year-group {
+    display: grid;
+    grid-template-columns: 4.25rem minmax(0, 1fr);
+    column-gap: 1.25rem;
+    align-items: baseline;
+
+    & + & {
+        margin-top: 1.75rem;
     }
-  }
+
+    .year {
+        font-size: 1rem;
+        font-variant-numeric: tabular-nums;
+        line-height: 1.6;
+    }
+
+    .post-item {
+        grid-template-columns: 3.5rem minmax(0, 1fr);
+    }
 }
 
+@media (max-width: $stack-break) {
+    .year-group {
+        grid-template-columns: minmax(0, 1fr);
+
+        .year {
+            margin-bottom: 0.25rem;
+        }
+
+        .post-item {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }
+}

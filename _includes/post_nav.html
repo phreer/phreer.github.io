@@ -1,18 +1,16 @@
-<div id="post-nav">
+{% if page.previous.url or page.next.url %}
+<nav class="post-nav" aria-label="{{ site.theme_settings.str_post_navigation | default: '相邻文章' }}">
   {% if page.previous.url %}
-  <div id="previous-post" class="post-nav-post">
-      <p>{{ site.theme_settings.str_previous_post }}</p>
-      <a href="{{ site.baseurl }}{{ page.previous.url }}">
-        {{ page.previous.title }}
-      </a>
+  <div class="post-nav-prev">
+    <span class="post-nav-label">{{ site.theme_settings.str_previous_post }}</span>
+    <a href="{{ page.previous.url | relative_url }}" rel="prev">{{ page.previous.title }}</a>
   </div>
   {% endif %}
   {% if page.next.url %}
-  <div id="next-post" class="post-nav-post">
-      <p>{{ site.theme_settings.str_next_post }}</p>
-      <a href="{{ site.baseurl }}{{ page.next.url }}">
-        {{ page.next.title }}
-      </a>
+  <div class="post-nav-next">
+    <span class="post-nav-label">{{ site.theme_settings.str_next_post }}</span>
+    <a href="{{ page.next.url | relative_url }}" rel="next">{{ page.next.title }}</a>
   </div>
   {% endif %}
-</div>
+</nav>
+{% endif %}

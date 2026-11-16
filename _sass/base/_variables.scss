@@ -1,73 +1,91 @@
+// ---------------------------------------------------------------------------
 // Typography
-$font-family-main: "Helvetica Neue", Helvetica, Tahoma, Verdana, Arial, "Georgia", "Hiragino Sans GB", "PingFang SC",  "Microsoft YaHei", "WenQuanYi Micro Hei", "Source Sans Pro", sans-serif;
-$font-family-headings: 'Source Sans Pro', Helvetica, Arial, sans-serif, "PingFang SC", "Microsoft YaHei";
-$font-weight-headings: 550;
+// ---------------------------------------------------------------------------
 
-$font-family-ui: "Tw Cen MT", "Microsoft YaHei UI", 'Source Sans Pro', Helvetica, Arial, sans-serif, "Microsoft YaHei", "PingFang SC";
-$font-size: 16px;
+// System fonts only. Latin faces come first so that letters and digits are not
+// drawn with the Latin glyphs bundled in a CJK font.
+$font-family-main: system-ui, -apple-system, "Segoe UI", "Helvetica Neue",
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC",
+    "Source Han Sans SC", "WenQuanYi Micro Hei", sans-serif;
+$font-family-headings: $font-family-main;
+$font-family-ui: $font-family-main;
 
-//Code
-$font-family-code: Menlo,Monaco,Consolas,"Courier New",monospace, "Microsoft YaHei", "Source Sans Pro";
-$background-color-code: #f6f6f6; 
+// 楷体 plays the role italics play in Latin typesetting: quotations and the
+// epigraph. Falls back to 宋体 where no Kai face is installed.
+$font-family-kai: "Iowan Old Style", "Palatino Linotype", Palatino, "Kaiti SC",
+    STKaiti, KaiTi, "LXGW WenKai", "AR PL UKai CN", "Noto Serif CJK SC",
+    "Source Han Serif SC", "Songti SC", serif;
 
-// Padding
-$padding-large: 15%;
-$padding-small: 3%;
-$padding-x-small: 1%;
+// The CJK sans faces keep Chinese comments in code from falling back to a serif.
+$font-family-code: ui-monospace, "SF Mono", SFMono-Regular, "Cascadia Mono",
+    "JetBrains Mono", Menlo, Consolas, "Liberation Mono", "DejaVu Sans Mono",
+    "PingFang SC", "Microsoft YaHei", "Noto Sans Mono CJK SC", "Noto Sans CJK SC",
+    monospace;
 
-// Brand colours
-$brand-color: #fff;
-$background-color: #fff;
-$border-color: rgba(0, 0, 0, 0.1); // rgba recommended if using feature images
+$font-size: 1.0625rem; // 17px
+$font-size-small: 0.875rem;
+$font-size-code: 0.84375rem; // 13.5px
+$line-height: 1.8;
+$line-height-headings: 1.4;
+$font-weight-headings: 600;
 
-// Typography colours
-$text-color: #383838;
-$link-color: #507492; // #1ABC9C;
-$selection-color: #D4D4D4; // visible when highlighting text
-$blockquote-color: #EEF7FA; // $background-color;
+// ---------------------------------------------------------------------------
+// Layout
+// ---------------------------------------------------------------------------
 
-//Search color
-$link-shadow: transparentize($link-color, .6); //rgba(26, 188, 156, 0.6);
-$text-shadow: #999;
-$search-color: #999;
+$measure: 40rem; // about 37 full-width characters per line at 17px
+$toc-width: 13rem;
+$toc-gap: 3rem;
+$toc-break: 78rem; // the table of contents needs this much room beside the text
+$stack-break: 34rem; // below this, two-column rows stack
 
-// Header colours
-$header-link-color: #383838;
-
-// Feature image for articles
-$feature-image-text-color: #fff;
-$feature-image-size: cover; // options include "cover", "contain", "auto"
-// Header description box
-$header-desc-background-color: #507492;
-$header-desc-text-color: #FFF;
-
-// Mobile display
+// Still used by the portfolio partial
 $break: 768px;
 $sm-break: 450px;
+$link-shadow: rgba(59, 104, 144, 0.4);
 
+// ---------------------------------------------------------------------------
+// Colours
+// Emitted as CSS custom properties (--bg, --ink, ...) in base/_global.scss.
+// The dark set applies automatically with the reader's system preference.
+// ---------------------------------------------------------------------------
 
-/*  Syntax highlighting  */
-// Syntax typography
-$monospace: Monaco, Consolas, "Lucida Console", monospace !default;
-$font-size-code: 0.875em !default; // ~14px
-$border-radius: 4px !default;
+$colors-light: (
+    bg: #ffffff,
+    ink: #24272c,
+    ink-strong: #101317,
+    ink-soft: #4b5158,
+    muted: #6b717a,
+    faint: #a3a8af,
+    rule: #e7e9ec,
+    surface: #f5f6f7,
+    accent: #3b6890,
+    selection: #d6e4f0,
+    syn-comment: #6f7782,
+    syn-keyword: #36618a,
+    syn-string: #4a7340,
+    syn-number: #9a5a1c,
+    syn-function: #75479a,
+    syn-builtin: #1d7479,
+    syn-error: #b93a32,
+);
 
-
-
-// base16 Material Theme
-$base00: #263238 !default;  // Default Background
-$base01: #2E3C43 !default;  // Lighter Background (Used for status bars)
-$base02: #314549 !default;  // Selection Background
-$base03: #546E7A !default;  // Comments, Invisibles, Line Highlighting
-$base04: #B2CCD6 !default;  // Dark Foreground (Used for status bars)
-$base05: #333 !default;     // Default Foreground, Caret, Delimiters, Operators
-$base06: #EEFFFF !default;  // Light Foreground (Not often used)
-$base07: #FFFFFF !default;  // Light Background (Not often used)
-$base08: #F07178 !default;  // Variables, XML Tags, Markup Link Text, Markup Lists, Diff Deleted
-$base09: #F78C6C !default;  // Integers, Boolean, Constants, XML Attributes, Markup Link Url
-$base0a: #FFCB6B !default;  // Classes, Markup Bold, Search Text Background
-$base0b: #98C379 !default;  // Strings, Inherited Class, Markup Code, Diff Inserted
-$base0c: #89DDFF !default;  // Support, Regular Expressions, Escape Characters, Markup Quotes
-$base0d: #82AAFF !default;  // Functions, Methods, Attribute IDs, Headings
-$base0e: #C792EA !default;  // Keywords, Storage, Selector, Markup Italic, Diff Changed
-$base0f: #FF5370 !default;  // Deprecated, Opening/Closing Embedded Language Tags e.g.
+$colors-dark: (
+    bg: #16181b,
+    ink: #c8ccd2,
+    ink-strong: #eef0f3,
+    ink-soft: #a4a9b0,
+    muted: #8a9099,
+    faint: #555b63,
+    rule: #2b2f35,
+    surface: #1e2126,
+    accent: #8fb8dc,
+    selection: #2d4a63,
+    syn-comment: #7f8791,
+    syn-keyword: #8fb8dc,
+    syn-string: #a5c68f,
+    syn-number: #e0ab7a,
+    syn-function: #c6a6e0,
+    syn-builtin: #7fc8cb,
+    syn-error: #f0857d,
+);

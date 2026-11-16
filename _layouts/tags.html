@@ -2,93 +2,40 @@
 layout: page
 ---
 
-<div class="home">
-
-<!-- cycles through posts to get tags -->
-{% assign rawtags = "" %}
+{% comment %} Collect the tags of posts, portfolio items and pages. {% endcomment %}
+{% assign all_tags = "" | split: "" %}
 {% for post in site.posts %}
-{% assign post_tags = post.tags | join:'|' | append:'|' %}
-{% assign rawtags = rawtags | append:post_tags %}
+  {% if post.tags %}{% assign all_tags = all_tags | concat: post.tags %}{% endif %}
 {% endfor %}
-
-<!-- cycles through portfolio collection to get tags -->
-{% assign portfolio =  site.portfolio | map: 'tags' | join: ','  | split: ',' | uniq %}
-{% for tag in portfolio %}
-{% assign portfolio_tags = tag | join:'|' | append:'|' %}
-{% assign rawtags = rawtags | append:portfolio_tags %}
+{% for note in site.portfolio %}
+  {% if note.tags %}{% assign all_tags = all_tags | concat: note.tags %}{% endif %}
 {% endfor %}
+{% for item in site.pages %}
+  {% if item.tags %}{% assign all_tags = all_tags | concat: item.tags %}{% endif %}
+{% endfor %}
+{% assign all_tags = all_tags | uniq | sort_natural %}
 
-<!-- cycles through pages to get tags -->
-{% for page in site.pages %}
-{% assign page_tags = page.tags | join:'|'  %}
-{% assign rawtags = rawtags | append:page_tags %}
-{% endfor %}    
-    
-<!-- Displays the list of tags-->
-{% include tags_list.html tags=rawtags %}
+{% include tags_list.html tags=all_tags %}
 
-    <!-- Displays the posts and pages that contains the tag-->
-    <div class="posts">
-        {% for tag in tags %}
-        <h3 id="{{ tag | cgi_escape }}" class="tag-anchor">
-            <a href="#{{ tag | cgi_escape }}"><i class="fa fa-tag fa-fw"></i> {{ tag }}</a>
-            <a href="#{{ page.title }}" style="float: right"><i class="fa fa-chevron-up" aria-hidden="true"> </i> </a>
-
-        </h3>
-
-        <!-- Posts and collection for each tags -->
-        <div class="tag-posts">
-
-            <!-- Pages -->
-            {% for page in site.pages %} 
-                {% if page.tags contains tag %}
-                <h5 class="tag-title">
-                    <a href="{{ page.url | prepend: site.baseurl }}">
-                        <i class="fa fa-file-image-o" aria-hidden="true"></i>
-                        {{ page.title }}
-                    </a>
-                    
-                    <div class="meta">
-                        {{ "today" | date: "%B %-d, %Y" }}
-                    </div>
-                </h5>
-                {% endif %} 
-            {% endfor %} 
-            
-            <!-- Posts -->
-            {% for post in site.posts %} 
-                {% if post.tags contains tag %}
-                <h5 class="tag-title">
-                    <a href="{{ post.url | prepend: site.baseurl }}">
-                        <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                        {{ post.title }}
-                    </a>
-                    
-                    <div class="meta">
-                        {{ post.date | date: "%B %-d, %Y" }}
-                    </div>
-                </h5>
-                {% endif %} 
-            {% endfor %} 
-            
-            <!-- Portfolio -->
-            {% for note in site.portfolio %} 
-                {% if note.tags contains tag %}
-                <h5 class="tag-title">
-                    <a href="{{ site.baseurl }}{{ note.url }}">
-                        <i class="fa fa-file-o" aria-hidden="true"></i>
-                        {{ note.title }}
-                    </a>
-                
-                    <div class="meta">
-                        {{ note.date | date: "%B %-d, %Y" }}
-                    </div>
-                </h5>
-                {% endif %} 
-            {% endfor %}
-
-        </div>
-        {% endfor %}
-
-    </div>
-</div>
+{% for tag in all_tags %}
+<section class="tag-group" id="{{ tag | slugify }}">
+  <h2 class="tag-heading">{{ tag }}</h2>
+  <ul class="post-list">
+    {% for item in site.pages %}
+    {% if item.tags contains tag %}
+    {% include post_item.html url=item.url title=item.title note=site.theme_settings.str_page %}
+    {% endif %}
+    {% endfor %}
+    {% for post in site.posts %}
+    {% if post.tags contains tag %}
+    {% include post_item.html url=post.url title=post.title date=post.date format="%Y-%m-%d" %}
+    {% endif %}
+    {% endfor %}
+    {% for note in site.portfolio %}
+    {% if note.tags contains tag %}
+    {% include post_item.html url=note.url title=note.title date=note.date format="%Y-%m-%d" %}
+    {% endif %}
+    {% endfor %}
+  </ul>
+</section>
+{% endfor %}

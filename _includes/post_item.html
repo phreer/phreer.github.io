@@ -1,0 +1,12 @@
+{% comment %}
+  One row of a post list.
+  Parameters: url, title, and either date + format (a strftime string) or note.
+{% endcomment %}
+<li class="post-item">
+  {% if include.date %}
+  <time datetime="{{ include.date | date_to_xmlschema }}">{{ include.date | date: include.format }}</time>
+  {% else %}
+  <span class="post-item-note">{{ include.note }}</span>
+  {% endif %}
+  <a href="{{ include.url | relative_url }}">{{ include.title }}</a>
+</li>

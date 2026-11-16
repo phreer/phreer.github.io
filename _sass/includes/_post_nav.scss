@@ -1,27 +1,45 @@
-#post-nav {
-    width: 100%;
-    display: inline-block;
-    text-align: center;
-    @extend %padding-small;
-   
-    a {
-        width: 100%;
-        padding: 0;
-        margin: 0;
-    }
-    p {
-        @extend .meta;
-    }
+.post-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 2rem;
+    margin-top: 3.5rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--rule);
+    font-family: $font-family-ui;
+    line-height: 1.5;
 
-    @media screen and (max-width: $break){
-        text-align: center;
-        #previous-post {
-            float: none;
-        }
-        #next-post {
-            float: none;
+    a {
+        color: var(--ink-strong);
+        font-weight: 500;
+        word-break: keep-all;
+        overflow-wrap: anywhere;
+
+        &:hover {
+            color: var(--accent);
         }
     }
 }
 
+.post-nav-label {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: var(--muted);
+    font-size: 0.8125rem;
+}
 
+// Stays in the right-hand column even when there is no previous post
+.post-nav-next {
+    grid-column: 2;
+    text-align: right;
+}
+
+@media (max-width: $stack-break) {
+    .post-nav {
+        grid-template-columns: 1fr;
+    }
+
+    .post-nav-next {
+        grid-column: 1;
+        text-align: left;
+    }
+}

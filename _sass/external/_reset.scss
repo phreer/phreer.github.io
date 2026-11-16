@@ -230,11 +230,8 @@ code,
 kbd,
 pre,
 samp {
-  font-family: $font-family-code;
-  color: $header-desc-background-color;
+  font-family: monospace, monospace;
   font-size: 1em;
-  background-color: $background-color-code;
-  padding: 1px 5px;
 }
 
 /* Forms

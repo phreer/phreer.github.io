@@ -1,64 +1,21 @@
-// Mix-ins
-%padding-small {
-    padding: $padding-x-small 0%;
-}
+// Keyboard shortcut past the header; visible only while focused
+.skip-link {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    z-index: 10;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    background: var(--bg);
+    font-size: $font-size-small;
+    transform: translateY(-200%);
 
-%padding-regular {
-    padding: $padding-small $padding-large;
-    @media (max-width: 1000px) {
-        padding: $padding-small * 1.5 $padding-large / 1.6;
-    }
-    @media (max-width: 576px) {
-        padding: $padding-small;
-    }
-}
-
-.header-txt-shadow {
-    text-shadow: 0px 0px 1px $text-shadow;
-}
-
-// Buttons
-.button {
-    border-radius: 0.3em;
-    border: 1px solid;
-    display: inline-block;
-    margin: 1em 0;
-    padding: 0.5em 0.75em;
-}
-
-a.button {
-    @extend .button-link;
-}
-
-.button-link {
-    &:hover {
-        background: $link-color;
-        border: 1px solid $link-color;
-        color: $background-color;
-        text-decoration: none;
+    &:focus {
+        transform: none;
     }
 }
 
-.body-link {
-    &:hover {
-        text-decoration: underline;
-        color: darken($link-color, 15%);
-    }
-}
-
-.post-link {
-    &:hover {
-        text-decoration: none;
-        color: lighten($link-color, 10%);
-    }
-}
-
-// States
-.disabled {
-    opacity: 0.7;
-}
-
-// Custom
+// Helpers for raw HTML in posts
 .text-center {
     text-align: center;
 }

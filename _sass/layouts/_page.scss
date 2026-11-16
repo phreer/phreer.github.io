@@ -1,16 +1,6 @@
-h1.title {
-    @extend .header-txt-shadow;
-}
+// Pages share the title block and long-form styles defined in
+// layouts/_posts.scss and base/_global.scss.
 
-.subtitle {
-    font-weight: normal;
-    margin-top: 5px;
-    text-shadow: 1px 1px 2px $text-shadow;
+.page-body > :first-child {
+    margin-top: 0;
 }
-
-.comments {
-    padding-top: 1em;
-    padding-bottom: 1em;
-    font-family: $font-family-ui;
-}
-//Shared css in _post.scss

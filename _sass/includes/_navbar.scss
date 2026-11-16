@@ -1,137 +1,46 @@
 .site-header {
-    width: $break;
-    padding: 0%;
-    padding-top: $padding-x-small;
-    padding-bottom: $padding-x-small;
-    margin: auto;
-    background: $brand-color;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.25rem 1.5rem;
+    width: 100%;
+    max-width: calc(#{$measure} + 2 * var(--gutter));
+    margin: 0 auto;
+    padding: clamp(1.5rem, 5vw, 2.5rem) var(--gutter) 0;
+    font-family: $font-family-ui;
+    line-height: 1.6;
+}
+
+.site-title {
+    margin: 0;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
 
     a {
-        color: $header-link-color;
+        color: var(--ink-strong);
     }
+}
 
-    .avatar {
-        height: 3em;
-        width: 3em;
-        float: left;
-        margin-top: -13px;
-        border-radius: 0.2em;
-        margin-right: 0.5em;
-        padding: 10px 10px;
+.site-nav {
+    font-size: 0.9375rem;
 
-    }
-
-    .site-title {
-        float: left;
-        font-weight: bold;
-        font-size: 1em;
-	font-family: $font-family-ui;
-        line-height: 1.5;
-    }
-
-    nav {
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 1.4rem;
         list-style: none;
-        margin: 0;
-        padding: 0;
-        ul {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-            line-height: 1.5;
-            float: right;
-            text-align: right;
-        }
-        li {
-            display: inline;
-            float: left;
-            margin-right: 0.4em;
-        }
-        a {
-            &:hover {
-                color: $link-color;
-            }
-            &#pull {
-                i {
-                    margin-top: 13px;
-                    float: right;
-                }
-
-            }
-
-        }
-    }
-}
-
-
-// To clear things when we float the element inisde nav and ul 
-.clear {
-    font-family: $font-family-ui;
-    *zoom: 1;
-
-    &:after {
-        clear: both;
     }
 
-    &:before,
-    &:after {
-        content: " ";
-        display: table;
-    }
-}
+    a {
+        display: block;
+        padding: 0.25rem 0;
+        color: var(--muted);
 
-/* ---- Responsive ---- */
-
-@media (min-width: $break) {
-    a#pull {
-        display: none;
-    }
-}
-
-@media screen and (max-width: $break) {
-    .site-header {
-        padding: 0% $padding-x-small;
-        width: auto;
-        img.avatar {
-            margin-top: -7px;
-        }
-        .site-title {
-            margin-top: 7px;
-            margin-bottom: 7px;
-        }
-    }
-
-    nav {
-        height: auto;
-
-        ul {
-            width: 100%;
-            display: none;
-            height: auto;
-        }
-
-        li {
-            width: 100%;
-            float: left;
-            position: relative;
-        }
-
-        a {
-            text-align: left;
-            width: 100%;
-
-            &#pull {
-                display: block;
-                width: 100%;
-                position: relative;
-
-                &:after {
-                    content: "";
-                    display: inline-block;
-                    position: absolute;
-                    right: 15px;
-                    top: 10px;
-                }
-            }
+        &:hover,
+        &[aria-current="page"] {
+            color: var(--ink-strong);
         }
     }
 }

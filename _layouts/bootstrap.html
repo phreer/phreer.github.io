@@ -5,13 +5,22 @@ layout: default
 <!-- Bootstrap-3.3.7 isolation CSS -->
 <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/bootstrap-iso.min.css">
 
-<!-- Bootstrap JS -->
+<!-- Font Awesome (portfolio hover icon) -->
+<link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/font-awesome.min.css">
+
+<!-- jQuery and Bootstrap JS -->
+<script src="{{ site.baseurl }}/assets/js/jquery-3.2.1.min.js"></script>
 <script src="{{ site.baseurl }}/assets/js/bootstrap.min.js"></script>
 
-<article {% if page.feature-img %}class="feature-image" {% endif %}>
-    <header id="main" style="background-image: url('{{ site.baseurl }}/{{ page.feature-img }}')">
-        <h1 class="title">{{ page.title }}</h1> {% if page.subtitle %}
-        <h2 class="subtitle">{{ page.subtitle }}</h2>{% endif %}
+<article class="page">
+    <header class="post-header">
+        {% if page.feature-img %}
+        <img class="cover" src="{{ page.feature-img | relative_url }}" alt="">
+        {% endif %}
+        <h1 class="title">{{ page.title }}</h1>
+        {% if page.subtitle %}
+        <p class="subtitle">{{ page.subtitle }}</p>
+        {% endif %}
     </header>
 
     {% if page.description %}
